@@ -1,0 +1,73 @@
+#card-home{
+    background: #BD0707;
+    border-radius: 10px;
+    width: 958px;
+    height: 400px;
+}
+.img-1st{
+    position: absolute;
+    left: 0rem;
+    top: 0rem;
+}
+.img-2nd{
+    position: absolute;
+    left: 15rem;
+    top: 20rem;
+}
+.img-3rd{
+    position: absolute;
+    left: 49.5rem;
+    top: 19rem;
+}
+.img-4th{
+    position: absolute;
+    left: 36.5rem;
+    top: 0rem;
+}
+#img-main-bg{
+    position: absolute;
+    width: 451px;
+    height: 324px;
+    left: 39rem;
+    top: 1.4rem;
+}
+#card-home .title-card p {
+    width: 357px;
+    height: 65px;
+    color: #FFF;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 60px;
+    line-height: 65px;
+}
+.content-card .ms-5{
+    font-style: normal;
+    font-weight: 300;
+    font-size: 24px;
+    color: #FFF;
+}
+.footer-card p {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    color: #FFF;
+    max-width: 32rem;
+}
+.footer-content {
+    width: 192px;
+    height: 49px;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 36px;
+    line-height: 49px;
+    color: #BD0707;
+}
+.price-drink p {
+    color : #974A4A;
+    font-family: 'Times New Roman', Times, serif;
+    line-height: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: -0.7rem;
+}

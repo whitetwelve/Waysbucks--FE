@@ -1,0 +1,40 @@
+.header-title .title-add-product{
+    width: 133px;
+    height: 22px;
+    font-weight: 800;
+    font-size: 36px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    color: #BD0707;
+}
+.formInputProduct{
+    width: 664px;
+    height: 50px;
+    border-radius: 5px;
+    border: 2px solid #BD0707;
+}
+.label-file-add-product img{
+    left: 44rem;
+    top: 23.7rem;
+    cursor: pointer;
+}
+.img-detail-product img {
+    width: 436px;
+    height: 555px;
+    border-radius: 10px;
+}
+#left-side-form {
+    margin-left: -3rem;
+}
+.btn-submit-prdct button {
+    width: 576px;
+    height: 40px;
+    left: 123px;
+    top: 616px;
+    color: #FFF;
+    border: none;
+    background: #BD0707;
+    border-radius: 5px;
+    margin-top: 2rem;
+}
