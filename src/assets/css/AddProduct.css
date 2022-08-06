@@ -15,13 +15,13 @@
     border: 2px solid #BD0707;
 }
 .label-file-add-product img{
-    left: 44rem;
-    top: 23.7rem;
+    left: 47.5rem;
+    top: 25.5rem;
     cursor: pointer;
 }
 .img-detail-product img {
-    width: 436px;
-    height: 555px;
+    height: 490px;
+    width: 23rem;
     border-radius: 10px;
 }
 #left-side-form {

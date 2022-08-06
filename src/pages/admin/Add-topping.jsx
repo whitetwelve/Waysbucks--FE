@@ -3,22 +3,23 @@ import { Container, Row, Col, Form } from "react-bootstrap"
 import "../../assets/css/AddProduct.css"
 import IconUpload from "../../assets/img/ikon-upload.png"
 import NoImg from "../../assets/img/no-photo.jpg"
-import NavbarAdmin from '../../components/partials/NavbarAdmin'
+import NavbarAdmin from '../../components/partials/NavbarAdmin';
 
-const AddDrink = () => {
-    const title = "Add Drink"
+
+const AddToping = () => {
+    const title = "Add Toping"
     document.title = title
 
     const [preview, setPreview] = useState(null)
-    const [addProduct, setAddProduct] = useState({
+    const [addToping, setAddToping] = useState({
         name : "",
         price : "",
         image : ""
     })
 
     const handleOnChange = (e) => {
-        setAddProduct(({
-            ...addProduct,
+        setAddToping(({
+            ...addToping,
             [e.target.name]:e.target.type === 'file' ? e.target.files : e.target.value
           }))
 
@@ -33,7 +34,7 @@ const AddDrink = () => {
         
         alert('Data added sucesfully!')
     }
-    console.log(addProduct);
+    console.log(addToping);
     return (
         <Container>
             <NavbarAdmin/>
@@ -41,12 +42,12 @@ const AddDrink = () => {
                 <Col id="left-side-form" className="mt-4">
                     <div className="header-title mt-5">
                         <p className="title-add-product mb-5">
-                            Product
+                            Toping
                         </p>
                     </div>
                     <Form onSubmit={handleOnSubmit}>
                         <Form.Group className="mb-4" controlId="formInputProduct">
-                            <Form.Control name="name" onChange={handleOnChange} autoComplete="off" className="formInputProduct" type="text" placeholder="Name Product" />
+                            <Form.Control name="name" onChange={handleOnChange} autoComplete="off" className="formInputProduct" type="text" placeholder="Name Toping" />
                         </Form.Group>
                         <Form.Group className="mb-2 mt-4" controlId="formInputProduct">
                             <Form.Control name="price" onChange={handleOnChange} autoComplete="off" className="formInputProduct mt-4" type="text" placeholder="Price" />
@@ -79,4 +80,4 @@ const AddDrink = () => {
     )
 }
 
-export default AddDrink
+export default AddToping

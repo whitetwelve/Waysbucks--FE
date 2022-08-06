@@ -4,16 +4,19 @@ import { useNavigate } from "react-router-dom"
 import "../../assets/css/Main.css"
 import Background from '../../components/background'
 import MainBg from "../../assets/img/background-main.png"
-import Logo from "../../assets/img/logo-waysbook.png"
 import DummyData from "../../DummyData/Drink"
 import Rp from "rupiah-format"
+import NavbarUser from '../../components/partials/NavbarUser'
 
 
-const Home = () => {
+const Home = ({show}) => {
 
+    const title ="Home"
+    document.title = title
     const [drinks] = useState(DummyData)
-
+    console.log(drinks);
     const moving = useNavigate()
+    const [cartCounter, setCartCounter] = useState(0)
 
     const moveToDetailDrink = (id) => {
         moving('/detail-drink/' + id)
@@ -21,13 +24,14 @@ const Home = () => {
   return (
     <>
         <Container>
+            <NavbarUser plusOne={cartCounter}/>
             <Row>
-                <Col className="mt-5">
-                    <div className="card-item mt-2">
+                <Col>
+                    <div className="card-item">
                         <Card id="card-home" className="mt-5">
                             <div className="title-card mt-5 ms-1">
                                 <p className="mt-3 ms-5">
-                                    WAYSBOOK
+                                    WAYSBUCK
                                 </p>
                             </div>
                             <div className="content-card ms-3 mt-1 ">
@@ -37,7 +41,7 @@ const Home = () => {
                             </div>
                             <div className="footer-card ms-5 mt-3">
                                 <p className='ms-3'>
-                                We have temporarily closed our in-store cafes, but select grocery and drive-thru locations remaining open. Waysbucks Drivers is also available
+                                We have temporarily closed our in-store cafes, but select grocery and drive-thru locations remaining open. <b>Waysbucks</b> Drivers is also available
                                 <br/><br/>Let's Order...
                                 </p>
                             </div>
@@ -63,7 +67,7 @@ const Home = () => {
                     <Col className="mapping-card ms-5 mb-5" key={index}>
                         <Card className="card-drink" >
                             <div className="img-drink">
-                                <Card.Img variant="top" src={item?.img} onClick={() => moveToDetailDrink(item?.id)}/>
+                                <Card.Img id="per-img-product" variant="top" src={item?.img} onClick={() => moveToDetailDrink(item?.id)}/>
                             </div>
                             <div className="name-drink ms-2 mt-3">
                                 <p>{item?.name}</p>

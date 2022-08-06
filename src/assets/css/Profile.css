@@ -1,0 +1,116 @@
+.header-title-profile p {
+    width: 118px;
+    height: 33px;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 33px;
+    color: #BD0707;
+}
+.img-profile img{
+    height: 242.79px;
+    width: 13rem;
+    object-fit: cover;
+}
+.parents-profile-data p {
+    height: 25px;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 25px;
+    color: #613D2B;
+    margin-left: 0rem;
+    margin-top: -1rem
+}
+.childs-profile-data p {
+    margin-left: 0rem;
+    font-weight: 400;
+    font-size: 18px;
+    margin-top: -9px;
+}
+.data-transaction .card-transaction{
+    width: 524px;
+    height: 242px;
+    background: #F7DADA;
+    border-radius: 10px;
+}
+.data-transaction .title-transaction p {
+    margin-top: -1.9rem;
+    width: 250px;
+    height: 33px;
+    font-weight: 900;
+    font-size: 32px;
+    color: #613D2B;
+    margin-bottom:30px
+}
+.datas-transaction p { 
+    color: #BD0707;
+    font-weight: 900;
+    font-size: 14px;
+    line-height: 19px;
+    font-weight: light
+}
+.title-names-transaction p {
+    font-size: 18px;
+}
+.date-transaction p {
+    font-size: 14px;
+    margin-top: -0.8rem;
+}
+.toping-transaction .just-toping{
+    font-size: 14px;
+    max-width: 20rem;
+    color: #974A4A;
+}
+.times-new{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #BD0707;
+    font-weight: 300;
+    font-size: 14px;
+}
+.left-side-card img{
+    height: 10rem;
+}
+.card-transaction{
+    width: 630px;
+    min-height: 282px;
+    background: #F7DADA;
+    border-radius: 10px;
+}
+.title-transaction p {
+    font-size: 24px;
+    margin-top: -2rem;
+    color: #613D2B;
+}
+.logo-transaction img {
+    left: 30rem;
+    top: 1rem;
+}
+.barcode-transaction img{
+    top: 7.2rem;
+    left: 30rem;
+    width: 5.5rem;
+}
+.button-transaction button {
+    background: linear-gradient(180deg, #00D1FF 0%, #00D1FF 100%);
+    opacity: 0.1;
+    border: none;
+    width: 8rem;
+    top: 13.5rem;
+    left: 28.5rem;
+    font-size: 14px;
+}
+.button-transaction b {
+    font-size: 14px;
+    width: 7rem;
+    color : #00D1FF;
+    font-weight: 900;
+    left: 30rem;
+    top: 13.5rem;
+    cursor: pointer;
+}
+.sub-total-transaction p {
+    font-size: 14px;
+    color: #974A4A;
+    left: 27.2rem;
+    width: 12rem;
+    top: 15.4rem;
+}

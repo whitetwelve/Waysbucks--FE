@@ -3,7 +3,6 @@ import bg1 from "../assets/img/bg1.png"
 import bg2 from "../assets/img/bg2.png"
 import bg3 from "../assets/img/bg3.png"
 import bg4 from "../assets/img/bg4.png"
-import MainBg from "../assets/img/background-main.png"
 import "../assets/css/Main.css"
 
 const Background = () => {

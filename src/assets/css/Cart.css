@@ -1,0 +1,29 @@
+.scroll {
+    max-height:220px;
+    overflow-y: auto;
+}
+.bg-red {
+    background-color: #BD0707;
+}
+.bg-red:hover {
+    background-color: #910909 !important
+}
+.p-5 .px-5 h3 {
+    color: #BD0707;
+    font-size: 24px;
+}
+.px-5 p {
+    color: #BD0707;
+    font-size: 18px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.card-body .card-text span {
+    color:#BD0707;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+} 
+#alert-message-payment{
+    text-align: center;
+    color: #469F74;
+    font-size: 24px;
+    font-weight: 100;
+}

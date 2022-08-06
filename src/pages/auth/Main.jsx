@@ -11,32 +11,52 @@ import DummyData from "../../DummyData/Drink"
 import Rp from "rupiah-format"
 
 
-const Main = () => {
+function Main() {
 
+    const title = "Authentication"
+    document.title = title
     const [drinks] = useState(DummyData)
 
-    const moving = useNavigate()
     const [showLogin, setShowLogin] = useState(false)
+    const [showRegister, setShowRegister] = useState(false)
 
-    const openModalLogin = () => {
-        setShowLogin(true)
-    }
-    // const moveToDetailDrink = () => {
-    //     moving('/detail-drink/:id')
-    // }
+    const handleCloseLogin = () => setShowLogin(false)
+    const handleCloseRegister = () => setShowRegister(false)
+    
 
-    const handleMoveToLogin = ({}) => {
-        return {
+    function switchRegister() {
+        handleCloseLogin();
+    
+        setShowRegister(true);
+      }
+    
+    function switchLogin() {
+        handleCloseRegister();
+    
+        setShowLogin(true);
+      }
 
-        }
-    }
   return (
     <>
+        <div className="for-auth-btn">
+            <button id="login-btn" className="mt-4"
+                onClick={() => setShowLogin(true)} type="submit">
+                Login
+            </button>
+            <button id="register-btn" className="mt-4 ms-3"
+                onClick={() => setShowRegister(true)}>
+                Register
+            </button>
+        </div>
         <Container>
-            <div className="auth">
-                <Login/>
-                <Register/>
-            </div>
+                <Login  
+                        show={showLogin}
+                        handleClose={handleCloseLogin}
+                        switchRegister={switchRegister}/>
+                <Register   
+                        show={showRegister}
+                        handleClose={handleCloseRegister}
+                        switchLogin={switchLogin}/>
             <div className="logo-waysbook">
                 <img src={Logo} id="logo"/>
             </div>
@@ -46,7 +66,7 @@ const Main = () => {
                         <Card id="card-home" className="mt-5">
                             <div className="title-card mt-5 ms-1">
                                 <p className="mt-3 ms-5">
-                                    WAYSBOOK
+                                    WAYSBUCK
                                 </p>
                             </div>
                             <div className="content-card ms-3 mt-1 ">
@@ -56,9 +76,10 @@ const Main = () => {
                             </div>
                             <div className="footer-card ms-5 mt-3">
                                 <p className='ms-3'>
-                                We have temporarily closed our in-store cafes, but select grocery and drive-thru locations remaining open. Waysbucks Drivers is also available
+                                We have temporarily closed our in-store cafes, but select grocery and drive-thru locations remaining open. <b>Waysbucks</b> Drivers is also available
                                 <br/><br/>Let's Order...
                                 </p>
+                                
                             </div>
                                 <Background/>
                                 <img id="img-main-bg" className="ms-3" src={MainBg} />
@@ -67,8 +88,7 @@ const Main = () => {
                     </Col>
             </Row>
         </Container>
-
-
+        
                     {/* FOOTER CONTENT */}
 
         <Container className="ms-5" >
@@ -80,9 +100,11 @@ const Main = () => {
                 </div>
                 {drinks.map((item, index) => (
                     <Col className="mapping-card ms-5 mb-5" key={index}>
-                        <Card className="card-drink" >
+                        <Card className="card-drink" onClick={() => {
+                            setShowLogin(true)
+                        }}>
                             <div className="img-drink">
-                                    <Card.Img variant="top" src={item?.img} onClick={openModalLogin}/>
+                                <Card.Img id="per-img-product" variant="top" src={item?.img}/>
                             </div>
                             <div className="name-drink ms-2 mt-3">
                                 <p>{item?.name}</p>

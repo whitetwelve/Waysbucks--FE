@@ -48,7 +48,7 @@
     border-radius: 5px;
     color: #BD0707;
     font-size: 14px;
-    margin-left: 56rem;
+    margin-left: 66rem;
 }
 #register-btn{
     width: 100px;
@@ -88,6 +88,6 @@
 .card-drink .img-drink{
     cursor: pointer;
 }
-#drink1{
-    
+#per-img-product{
+    border-radius: 14px;
 }

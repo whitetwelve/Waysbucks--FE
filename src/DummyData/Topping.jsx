@@ -15,7 +15,7 @@ const datas = [
         price : 6000
     },
     {
-        name : 'Mango',
+        name : 'Manggo',
         img : topping2,
         price : 9000
     },
@@ -48,11 +48,6 @@ const datas = [
         name : 'Strawberry Popping',
         img : topping7,
         price : 4000
-    },
-    {
-
-        price : 8000
     }
 ]
-
 export default datas

@@ -1,0 +1,95 @@
+.mt-5 .title-detail-product .mt-4{
+    width: 501px;
+    height: 66px;
+    font-weight: 900;
+    font-size: 48px;
+    line-height: 66px;
+    color: #BD0707;
+}
+#right-side-addtpg{
+    margin-left: -10rem;
+}
+#detail-img-drink{
+    height: 540px;
+    border-radius: 10px;
+}
+.price-drink p {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 33px;
+    color: #974A4A;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.toping-add p{
+    color: #974A4A;
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 33px;
+}
+.img-data-toping p {
+    width: 160px;
+    height: 19px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: #BD0707;
+    margin-left: -1rem;
+}
+.img-data-toping img{
+    margin-bottom: 2rem;
+}
+.price-data-toping p {
+    width: 120px;
+    height: 19px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: #BD0707;
+    margin-top: -1rem;
+}
+.topping-datas{
+    min-width: 8rem;
+}
+.sub-total .left-total {
+    width: 55px;
+    height: 33px;
+    font-weight: 900;
+    font-size: 24px;
+    color: #974A4A;
+}
+.sub-total .right-total{
+    width: 15rem ;
+    height: 33px;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 33px;
+    color: #974A4A;
+    left: 66rem;
+    position: absolute;
+}   
+#row-detail-product{
+    margin-top: -2.8rem;
+    margin-left: 2.5rem;
+}
+.btn-add-cart button {
+    width: 576px;
+    height: 40px;
+    background: #BD0707;
+    border-radius: 5px;
+    border: none;
+    color: #FFF;
+}
+
+.poppingCheck:checked + label::after {
+    content: url(../../assets/img/checklist.png);
+    margin-bottom: 2px;
+    position: absolute;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+#toping-name{
+    text-align: center;
+    margin-left: -2.7rem;
+}

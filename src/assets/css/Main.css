@@ -45,14 +45,16 @@
     font-weight: 300;
     font-size: 24px;
     color: #FFF;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 .footer-card p {
-    font-style: normal;
-    font-weight: 400;
     font-size: 18px;
-    line-height: 25px;
     color: #FFF;
-    max-width: 32rem;
+    max-width: 29rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.footer-card .ms-3 p{
+    font-weight: 900;
 }
 .footer-content {
     width: 192px;
@@ -70,4 +72,10 @@
     font-size: 14px;
     font-weight: 400;
     margin-top: -0.7rem;
+}
+.logo-waysbook #logo{
+    margin-top: -1rem;
+}
+#per-img-product{
+    border-radius: 14px;
 }
