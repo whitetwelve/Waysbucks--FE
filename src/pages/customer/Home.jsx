@@ -16,15 +16,16 @@ const Home = ({show}) => {
     const [drinks] = useState(DummyData)
     console.log(drinks);
     const moving = useNavigate()
-    const [cartCounter, setCartCounter] = useState(0)
 
     const moveToDetailDrink = (id) => {
         moving('/detail-drink/' + id)
     }
+
+    const addCart = localStorage.getItem("Tambah")
   return (
     <>
         <Container>
-            <NavbarUser plusOne={cartCounter}/>
+            <NavbarUser plusOne={addCart}/>
             <Row>
                 <Col>
                     <div className="card-item">

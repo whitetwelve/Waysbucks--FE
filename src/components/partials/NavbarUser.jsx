@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import LogoutIcon from "../../assets/img/logout.png"
 
 
-function NavbarUser({ plusOne}) {
+function NavbarUser({ plusOne }) {
 
 
     const [_, dispatch] = useContext(UserContext)
@@ -40,7 +40,7 @@ function NavbarUser({ plusOne}) {
       <div className="container">
         <nav className="navbar navbar-expand-lg navbar-light bg-white">
           <div className="container-fluid">
-          <span class="badge rounded-pill bg-danger" style={{position:"absolute", top:"35px", right:"90px"}}> 
+          <span id="counter-plus" class="badge rounded-pill bg-danger" style={{position:"absolute", top:"35px", right:"90px"}}> 
                 {plusOne}
               <span class="visually-hidden">
                   unread messages

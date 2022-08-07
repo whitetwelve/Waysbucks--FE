@@ -37,14 +37,13 @@ function Cart({show}) {
       </Alert>
     )
     setMessage(alert)
-    
-    
   } 
-  console.log(message);
+
+  const addCart = localStorage.getItem("Tambah")
   return (
     <div>
       <div className="container">
-        <NavbarUser className="ms-4 for-nav" plusOne={cartCounter}/>
+        <NavbarUser className="ms-4 for-nav" plusOne={addCart}/>
         {message}
       </div>
       <div className="p-5 mx-5">

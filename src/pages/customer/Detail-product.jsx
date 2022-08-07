@@ -48,12 +48,16 @@ const DetailProduct = () => {
     const index = ( id.id - 1 )
     const response = drinksDummy[index]
 
-    const handleOnIncrease = () => {
-        return setCartCounter(cartCounter + 1)
+
+    const increaseCart = (e) => {
+        e.preventDefault()
+        setCartCounter(cartCounter + 1)
     }
+    localStorage.setItem("Tambah", cartCounter)
+    const addCart = localStorage.getItem("Tambah")
     return (
         <Container>
-            <NavbarUser plusOne={cartCounter}/>
+            <NavbarUser plusOne={addCart}/>
             <Row id="row-detail-product">
                 <Col className="detail-drink mt-5">
                     <img id="detail-img-drink" className='mt-4 shadow-lg' src={response?.img} value={response?.img}/>
@@ -107,7 +111,7 @@ const DetailProduct = () => {
                             </div>
                         </div>
                         <div className="btn-add-cart mb-5 mt-2">
-                            <button className="mb-2" type="submit" onClick={handleOnIncrease} >Add Cart</button>
+                            <button className="mb-2" type="submit" onClick={increaseCart} >Add Cart</button>
                         </div>
                     </Row>
                 </Col>

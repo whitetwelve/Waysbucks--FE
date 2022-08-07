@@ -26,10 +26,10 @@ const Profile = () => {
         total += item?.price
     })
 
-    const [cartCounter, setCartCounter] = useState(0)
+    const addCart = localStorage.getItem("Tambah")
     return (
         <Container>
-            <NavbarUser plusOne={cartCounter}/>
+            <NavbarUser plusOne={addCart}/>
             <Row>
                 <div className="header-title-profile mt-5">
                     <p className="py-3 fw-bolder">My Profile</p>
