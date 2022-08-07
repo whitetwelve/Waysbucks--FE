@@ -1,0 +1,22 @@
+#triangle {
+    left: 6rem;
+    top: -1.9rem;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-bottom: 40px solid #FFF;
+}
+#dropdown-menu{
+    border:none;
+    margin-left: -5rem;
+    margin-top: 1.6rem;
+}
+#logo-nav{
+    cursor: pointer;
+    margin-left: -2.5rem;
+}
+#profile-nav{
+    cursor: pointer;
+}
+.container-fluid .navbar-brand{
+    cursor: pointer;
+}

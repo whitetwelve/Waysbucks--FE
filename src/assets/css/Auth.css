@@ -1,0 +1,93 @@
+.header-login p{
+    width: 95px;
+    height: 49px;
+    font-weight: 900;
+    font-size: 36px;
+    line-height: 49px;
+    color: #BD0707
+}
+#emailInput{
+    width: 430px;
+    height: 50px;
+    border: 2px solid #BD0707;
+    border-radius: 5px;
+}
+#passwordInput{
+    width: 430px;
+    height: 50px;
+    border: 2px solid #BD0707;
+    border-radius: 5px;
+}
+#fullnameInput{
+    width: 430px;
+    height: 50px;
+    border: 2px solid #BD0707;
+    border-radius: 5px;
+}
+.btn-login button {
+    width: 430px;
+    height: 50px;
+    background: #BD0707;
+    border-radius: 5px;
+    border: none;
+    color: #FFF;
+    font-size: 18px;
+    margin-top: 40px;
+}
+.footer p {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+}
+.footer p b {
+    cursor: pointer;
+}
+#login-btn{
+    width: 100px;
+    height: 30px;
+    border: 2px solid #BD0707;
+    border-radius: 5px;
+    color: #BD0707;
+    font-size: 14px;
+    margin-left: 66rem;
+}
+#register-btn{
+    width: 100px;
+    height: 30px;
+    border: 2px solid;
+    background-color: #BD0707;
+    border-radius: 5px;
+    color: #FFF;
+    font-size: 14px;
+}
+#logo{
+    position: absolute;
+    top: 2rem;
+    left: 6.5rem;
+}
+#card-home{
+    margin-left: 2.4rem;
+}
+.card-drink{
+    width: 241px;
+    max-height: 402px;
+    background-color: #F6DADA;
+    border-radius: 10px;
+}
+.footer-title p {
+    color:#BD0707;
+    font-size: 36px;
+}
+.name-drink p {
+    color: #BD0707;
+    font-size: 18px;
+    font-weight: 900;
+}
+.ms-5 .ms-5 .mapping-card{
+    min-width: 12rem
+}
+.card-drink .img-drink{
+    cursor: pointer;
+}
+#per-img-product{
+    border-radius: 14px;
+}

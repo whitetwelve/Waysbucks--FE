@@ -1,0 +1,42 @@
+.scroll {
+    max-height:220px;
+    overflow-y: auto;
+  }
+  
+.status-transaction-Success {
+    color: #78A85A;
+    margin-left: 1rem;
+    margin-top: 0.15rem;
+    margin-bottom: 0.1rem;
+  }
+  
+.status-transaction-OntheWay {
+    color: #00D1FF;
+    margin-left: 1rem;
+    margin-top: 0.15rem;
+    margin-bottom: 0.1rem;
+  }
+  
+.status-transaction-Cancel {
+    color: #E83939;
+    margin-left: 1rem;
+    margin-top: 0.15rem;
+    margin-bottom: 0.1rem;
+  }
+  
+.status-transaction-WaitingApprove {
+    color: #FF9900;
+    margin-left: 1rem;
+    margin-top: 0.15rem;
+    margin-bottom: 0.1rem;
+  }
+.text-red h3{
+    color : #BD0707
+  }
+tbody tr td {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+tbody tr th {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+  
