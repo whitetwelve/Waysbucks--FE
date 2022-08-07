@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState } from 'react';
 import "../../assets/css/Profile.css"
 import { Container, Row, Col, Card } from "react-bootstrap"
 import DummyProductTransaction from "../../DummyData/TransactionCard"

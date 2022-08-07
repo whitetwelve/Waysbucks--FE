@@ -1,8 +1,7 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap';
 import { UserContext } from './context/user-context';
-import { API } from "./config/API"
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Main from "./pages/auth/Main"
 import AddDrink from './pages/admin/Add-drink';
@@ -17,7 +16,7 @@ import Transaction from './pages/admin/Transaction';
 function App() {
 
   const moving = useNavigate()
-  const [state, dispatch] = useContext(UserContext)
+  const [state,_] = useContext(UserContext)
   console.log(state);
 
 

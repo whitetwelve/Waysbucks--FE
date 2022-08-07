@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col, Form, Alert } from "react-bootstrap"
 import Rp from "rupiah-format"
 import "../../assets/css/DetailProduct.css"
@@ -6,7 +6,6 @@ import DummyTopping from "../../DummyData/Topping"
 import { useParams } from 'react-router-dom';
 import DummyDrinks from "../../DummyData/Drink"
 import NavbarUser from "../../components/partials/NavbarUser";
-
 
 
 const DetailProduct = () => {
@@ -52,6 +51,7 @@ const DetailProduct = () => {
     const increaseCart = (e) => {
         e.preventDefault()
         setCartCounter(cartCounter + 1)
+        alert('Data added succesfully')
     }
     localStorage.setItem("Tambah", cartCounter)
     const addCart = localStorage.getItem("Tambah")

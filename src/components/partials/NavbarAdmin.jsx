@@ -1,4 +1,4 @@
-import React, { useState, useContext} from "react";
+import React, { useContext} from "react";
 import { UserContext } from "../../context/user-context";
 import Logo from "../../assets/img/logo-waysbook.png";
 import Blank from "../../assets/img/profile-nav.png";
