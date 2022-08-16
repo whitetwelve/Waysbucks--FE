@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Form, Alert } from "react-bootstrap"
+import { Container, Row, Col } from "react-bootstrap"
 import Rp from "rupiah-format"
 import "../../assets/css/DetailProduct.css"
-import DummyTopping from "../../DummyData/Topping"
+import DummyTopping from "../../Dummies/Topping"
 import { useParams } from 'react-router-dom';
-import DummyDrinks from "../../DummyData/Drink"
+import DummyDrinks from "../../Dummies/Drink"
 import NavbarUser from "../../components/partials/NavbarUser";
 
 
@@ -16,12 +16,11 @@ const DetailProduct = () => {
 
     const [total, setTotal] = useState(0);
 
-    const handleOnchage = (position) => {
+    const handleOnchage = (id) => {
         const updateCheckedState = checkedState.map((item, index) =>
-            index === position ? !item : item
+            index === id ? !item : item
         )
-       
-    
+
         setCheckedState(updateCheckedState);
 
         const totalPrice = updateCheckedState.reduce(
@@ -31,7 +30,6 @@ const DetailProduct = () => {
                 }
                 return sum;
             },
-            0
         );
         console.log(totalPrice);
         setTotal(totalPrice)
@@ -53,6 +51,7 @@ const DetailProduct = () => {
         setCartCounter(cartCounter + 1)
         alert('Data added succesfully')
     }
+
     localStorage.setItem("Tambah", cartCounter)
     const addCart = localStorage.getItem("Tambah")
     return (

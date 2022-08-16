@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import "../../assets/css/Profile.css"
 import { Container, Row, Col, Card } from "react-bootstrap"
-import DummyProductTransaction from "../../DummyData/TransactionCard"
+import DummyProductTransaction from "../../Dummies/TransactionCard"
 import Logo from "../../assets/img/logo-waysbook.png"
 import Bc from "../../assets/img/barcode.png"
 import Rp from "rupiah-format"
 import NavbarUser from '../../components/partials/NavbarUser';
-import DummyProfile from "../../DummyData/Profile"
+import DummyProfile from "../../Dummies/Profile"
 import Moment from "moment"
 
 const Profile = () => {
@@ -15,7 +15,7 @@ const Profile = () => {
     document.title = title
     
     const [profileDummy] = useState(DummyProfile)
-    const dataCustomer = profileDummy[0]
+    const dataCustomer = profileDummy[1]
     
     const [DummyProduct] = useState(DummyProductTransaction)
     console.log(DummyProduct);

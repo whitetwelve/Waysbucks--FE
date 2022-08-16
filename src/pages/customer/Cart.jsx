@@ -3,18 +3,18 @@ import Bin from "../../assets/img/bin.png";
 import NavbarUser from "../../components/partials/NavbarUser";
 import "../../assets/css/Cart.css"
 import Rp from "rupiah-format"
-import DummyLagi from "../../DummyData/My-Cart"
+import DummyData from "../../Dummies/My-Cart"
 import { Alert , Form } from "react-bootstrap"
 
-function Cart({show}) {
+function Cart() {
   
   const title = "My Cart"
   document.title = title
 
-  const [cartData] = useState(DummyLagi)
+  const [cartData] = useState(DummyData)
   const [deleteDummyData, setDeleteDummyData] = useState(cartData)
   const [message, setMessage] = useState(null)
-  const [cartCounter, setCartCounter] = useState(0)
+
   
   let subTotal = 0;
   cartData.forEach((item) => {
@@ -125,25 +125,20 @@ function Cart({show}) {
 
                 <div className="text-red">
                   <hr />
-
                   <div className="d-flex justify-content-between">
                     <p className="d-flex">Subtotal</p>
                     <p className="d-flex">{Rp.convert(subTotal)}</p>
                   </div>
-
                   <div className="d-flex justify-content-between">
                     <p className="d-flex">Qty</p>
                     <p className="d-flex">{cartData?.length}</p>
                   </div>
-
                   <hr />
-
                   <div className="d-flex justify-content-between">
                     <p className="d-flex fw-bold">Total</p>
                     <p className="d-flex fw-bold">{Rp.convert(subTotal)}</p>
                   </div>
                 </div>
-
               <div className="mt-4">
               <Form className="d-flex" onSubmit={handleOnSubmit}>
                 <button 

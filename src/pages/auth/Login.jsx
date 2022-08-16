@@ -1,13 +1,17 @@
 import React, { useState, useContext } from 'react';
-import Modal from 'react-bootstrap/Modal';
+import { Modal, Alert } from 'react-bootstrap';
 import "../../assets/css/Auth.css"
 import { Form } from "react-bootstrap"
 import { UserContext } from '../../context/user-context';
-
+import { useNavigate } from 'react-router-dom';
+import { useMutation } from 'react-query';
+import { API } from "../../config/API"
 
 const Login = ({ show , handleClose, switchRegister }) => {
     
+    const moving = useNavigate()
     const [state, dispatch] = useContext(UserContext)
+    const [message, setMessage] = useState(null)
     console.log(state);
     const [getData, setGetData] = useState({
         email : "",
@@ -22,23 +26,48 @@ const Login = ({ show , handleClose, switchRegister }) => {
         })
     }
 
-    const forHandleSubmit = (e) => {
-        e.preventDefault()
-        const email = document.getElementById('emailInput').value
-        const password = document.getElementById('passwordInput').value
-
-        dispatch({
-            type:'LOGIN_SUCCESS',
-            payload: {
-                email,
-                password,
-            }
-        })
-
-        if(state.user.email !== "fuad@mail.com" || "inggil@mail.com" || "admin@mail.com") {
-            alert('Masukkan alamat email dengan benar')
+    const handleOnSubmit = useMutation(async (e) => {
+        try {
+          e.preventDefault();
+      
+          // CONFIG TYPE DATA
+          const config = {
+            headers: {
+              'Content-type': 'application/json',
+            },
+          };
+      
+          // CONVERT DATA TO STRING
+          const body = JSON.stringify(getData);
+          console.log(getData);
+          // INPUT DATA
+          const response = await API.post('/login', body, config);
+          const { status, fullname } = response.data.users
+          console.log(response.data.users);
+          dispatch({
+            type: 'LOGIN_SUCCESS',
+            payload: response.data.users
+          })
+          
+          if(status == 'customer'){
+            alert(`Welcome ${fullname} !`)
+            moving('/')
+          } else if(status == 'admin'){ 
+            alert(`Welcome ${fullname} !`)
+            moving('/transaction')
+          } else {
+            alert("Ga bisa login ya ?")
+          }
+        } catch (error) {
+          const alert = (
+            <Alert variant="danger" className="py-3">
+              {error.response.data.message}
+            </Alert>
+          )
+          console.error(error);
+          setMessage(alert)
         }
-    }
+      })
 
   return (
     <>
@@ -48,7 +77,8 @@ const Login = ({ show , handleClose, switchRegister }) => {
             <div className="header-login mb-4">
                 <p className='mt-4 ms-3'>Login</p>
             </div>
-            <Form onSubmit={forHandleSubmit}>
+            {message}
+            <Form onSubmit={(e) => handleOnSubmit.mutate(e)}>
                 <div className="email-input ms-3">
                     <Form.Control
                         type="text"

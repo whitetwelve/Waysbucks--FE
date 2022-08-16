@@ -4,14 +4,19 @@ import "../../assets/css/AddProduct.css"
 import IconUpload from "../../assets/img/ikon-upload.png"
 import NoImg from "../../assets/img/no-photo.jpg"
 import NavbarAdmin from '../../components/partials/NavbarAdmin'
+import { useMutation } from 'react-query'
+import { useNavigate } from 'react-router-dom';
+import { API } from "../../config/API"
 
 const AddDrink = () => {
-    const title = "Add Drink"
+    const title = "Add Product"
     document.title = title
 
+    const moving = useNavigate()
+    const [message , setMessage] = useState(null)
     const [preview, setPreview] = useState(null)
     const [addProduct, setAddProduct] = useState({
-        name : "",
+        title : "",
         price : "",
         image : ""
     })
@@ -28,12 +33,33 @@ const AddDrink = () => {
           }
         };
 
-    const handleOnSubmit = (e) => {
-        e.preventDefault()
+        const handleOnSubmit = useMutation(async (e) => {
+            try {
+              e.preventDefault();
         
-        alert('Data added sucesfully!')
-    }
-    console.log(addProduct);
+              // Configuration
+              const config = {
+                headers: {
+                  'Content-type': 'multipart/form-data',
+                },
+              };
+        
+        // Store data with FormData as object
+        const formData = new FormData();
+              formData.set('image', addProduct.image[0], addProduct.image[0].name);
+              formData.set('title', addProduct.title);
+              formData.set('price', addProduct.price);
+        
+              // Insert product data
+              const response = await API.post('/product', formData, config);
+              console.log(response);
+        
+          alert('Produk berhasil ditambahkan!')
+            } catch (error) {
+              console.log(error);
+            }
+          });
+
     return (
         <Container>
             <NavbarAdmin/>
@@ -44,9 +70,9 @@ const AddDrink = () => {
                             Product
                         </p>
                     </div>
-                    <Form onSubmit={handleOnSubmit}>
+                    <Form onSubmit={(e) => handleOnSubmit.mutate(e)}>
                         <Form.Group className="mb-4" controlId="formInputProduct">
-                            <Form.Control name="name" onChange={handleOnChange} autoComplete="off" className="formInputProduct" type="text" placeholder="Name Product" />
+                            <Form.Control name="title" onChange={handleOnChange} autoComplete="off" className="formInputProduct" type="text" placeholder="Name Product" />
                         </Form.Group>
                         <Form.Group className="mb-2 mt-4" controlId="formInputProduct">
                             <Form.Control name="price" onChange={handleOnChange} autoComplete="off" className="formInputProduct mt-4" type="text" placeholder="Price" />
@@ -62,7 +88,7 @@ const AddDrink = () => {
                             <label for="upload" className="label-file-add-product">
                                 <img className="position-absolute" src={IconUpload}/>
                             </label>
-                            <Form.Control className="formInputProduct" value={preview} type="text" placeholder="Photo Product" />
+                            <Form.Control className="formInputProduct" value={addProduct?.image[0]?.name} type="text" placeholder="Photo Product" />
                         </Form.Group>
                         <div className="btn-submit-prdct ms-5">
                             <button type='submit'>Add Product</button>

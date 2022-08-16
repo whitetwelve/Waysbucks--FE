@@ -11,33 +11,59 @@ import AddToping from './pages/admin/Add-topping';
 import Profile from './pages/customer/Profile';
 import Cart from './pages/customer/Cart';
 import Transaction from './pages/admin/Transaction';
+import { API, setAuthToken } from "./config/API"
 
-
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 function App() {
 
   const moving = useNavigate()
-  const [state,_] = useContext(UserContext)
+  const [state,dispatch] = useContext(UserContext)
   console.log(state);
 
 
   useEffect(() => {
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
     if(state.isLogin === false) {
       return moving('/Auth')
     }
-    if(state.user.email === 'admin@mail.com') { 
-      alert("Login Succes!")
-      moving ('/transaction')
-    } else if(state.user.email === "inggil@mail.com") {
-      alert("Login Success!")
-      moving('/')
-    } else if(state.user.email === "fuad@mail.com") {
-      alert("Login Success!")
-      moving('/')
-    } else if(state.isLogin === false) {
-      alert('...')
-    }
   },[state])
   
+  const checkUser = async () => {
+    try {
+      const response = await API.get('/check-auth');
+      console.log(response);
+      // If the token incorrect
+      if (response.status === 404) {
+        return dispatch({
+          type: 'AUTH_ERROR',
+        });
+      }
+
+      // Get user data
+      let payload = response.data.data.user;
+      console.log(payload);
+      // Get token from local storage
+      payload.token = localStorage.token;
+
+      // Send data to useContext
+      dispatch({
+        type: 'USER_SUCCESS',
+        payload,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (localStorage.token) {
+      checkUser();
+    }
+  }, []);
   return (
     <Routes>
         <Route exact path='/' element={<Home/>}/>

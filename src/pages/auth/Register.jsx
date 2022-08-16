@@ -1,14 +1,15 @@
 import React, { useState, useContext } from 'react';
-import Modal from 'react-bootstrap/Modal';
 import "../../assets/css/Auth.css"
-import { Form } from "react-bootstrap"
+import { Form, Modal, Alert } from "react-bootstrap"
 import { UserContext } from '../../context/user-context';
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from "react-query"
+import { API } from "../../config/API"
 
 const Register = ({ show, handleClose, switchLogin }) => {
 
     const [ state, dispatch ] = useContext(UserContext)
-    console.log(state);
+    const [message, setMessage] = useState(null)
     const [ getData, setGetData ] = useState({
         email : "",
         password : "",
@@ -25,28 +26,39 @@ const Register = ({ show, handleClose, switchLogin }) => {
         console.log(e.target.value);
     }
 
-    const forHandleSubmit = (e) => {
-        e.preventDefault()
-        const email = document.getElementById('emailInput').value
-        const password = document.getElementById('passwordInput').value
-        const fullname = document.getElementById('fullnameInput').value
-
-        dispatch({
-            type:'REGISTER_SUCCESS',
-            payload: {
-                email,
-                password,
-                fullname
-            }
-        })
-
-        if(state.isRegister == true) {
-            moving(show)
-            alert('Register Success!')
-        } else {
-            alert('Register Success!')
+    const handleOnSubmit = useMutation(async (e) => {
+        try {
+          e.preventDefault();
+      
+          // Configuration Content-type
+          const config = {
+            headers: {
+              'Content-type': 'application/json',
+            },
+          };
+      
+          // Data body
+          const body = JSON.stringify(getData);
+          
+          // Insert data user to database
+          const response = await API.post('/register', body, config);
+          
+          const alert = (
+            <Alert variant="success" className='py-3'>
+              Regist akun berhasil!
+            </Alert>
+          )
+          setMessage(alert)
+        } catch (error) {
+          const alert = (
+            <Alert variant="danger" className="as">
+             {error.message}
+            </Alert>
+          );
+          setMessage(alert);
+          console.log(error);
         }
-    }
+      });
 
   return (
     <>
@@ -55,7 +67,8 @@ const Register = ({ show, handleClose, switchLogin }) => {
             <div className="header-login mb-4">
                 <p className='mt-4 ms-3'>Register</p>
             </div>
-        <Form onSubmit={ forHandleSubmit }>
+            {message}
+        <Form onSubmit={(e) => handleOnSubmit.mutate(e)}>
             <div className="email-input ms-3">
                 <Form.Control
                     type="text"

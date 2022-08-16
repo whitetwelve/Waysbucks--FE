@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import NavbarAdmin from "../../components/partials/NavbarAdmin";
-import TransactionData from "../../DummyData/TransactionData"
+import TransactionData from "../../Dummies/TransactionData"
 import "../../assets/css/Transaction.css"
 
 function Transaction() {

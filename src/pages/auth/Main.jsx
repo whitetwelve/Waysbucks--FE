@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
-import { Container, Row, Col, Button, Card } from "react-bootstrap"
-import { useNavigate } from "react-router-dom"
+import React, { useState, useEffect } from 'react'
+import { Container, Row, Col, Card } from "react-bootstrap"
 import "../../assets/css/Main.css"
-import Background from '../../components/background'
+import Background from '../../components/bg/background'
 import MainBg from "../../assets/img/background-main.png"
 import Login from './Login'
 import Register from "./Register"
 import Logo from "../../assets/img/logo-waysbook.png"
-import DummyData from "../../DummyData/Drink"
+import DummyData from "../../Dummies/Drink"
 import Rp from "rupiah-format"
-
+import { useMutation, useQuery } from "react-query"
+import { API } from "../../config/API"
 
 function Main() {
 
@@ -17,6 +17,7 @@ function Main() {
     document.title = title
     const [drinks] = useState(DummyData)
 
+    const [products, setProducts] = useState([])
     const [showLogin, setShowLogin] = useState(false)
     const [showRegister, setShowRegister] = useState(false)
 
@@ -36,6 +37,16 @@ function Main() {
         setShowLogin(true);
       }
 
+    //   GET PRODUCTS
+    const getProducts = async () => {
+        const response = await API.get('/products')
+        setProducts(response.data.products)
+    }
+
+    useEffect(() => {
+        getProducts()
+    },[])
+    console.log(products.data.products);
   return (
     <>
         <div className="for-auth-btn">
@@ -98,7 +109,7 @@ function Main() {
                         Let's Order
                     </p>
                 </div>
-                {drinks.map((item, index) => (
+                {products?.map((item, index) => (
                     <Col className="mapping-card ms-5 mb-5" key={index}>
                         <Card className="card-drink" onClick={() => {
                             setShowLogin(true)
@@ -107,7 +118,7 @@ function Main() {
                                 <Card.Img id="per-img-product" variant="top" src={item?.img}/>
                             </div>
                             <div className="name-drink ms-2 mt-3">
-                                <p>{item?.name}</p>
+                                <p>{item?.title}</p>
                             </div>
                             <div className="price-drink ms-2">
                                 <p>{Rp.convert(item?.price)}</p>

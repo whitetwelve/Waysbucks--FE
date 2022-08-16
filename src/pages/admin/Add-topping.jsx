@@ -4,15 +4,20 @@ import "../../assets/css/AddProduct.css"
 import IconUpload from "../../assets/img/ikon-upload.png"
 import NoImg from "../../assets/img/no-photo.jpg"
 import NavbarAdmin from '../../components/partials/NavbarAdmin';
+import { useMutation } from 'react-query'
+import { useNavigate } from 'react-router-dom';
+import { API } from "../../config/API"
 
 
 const AddToping = () => {
     const title = "Add Toping"
     document.title = title
 
+    const moving = useNavigate()
+    const [message, setMessage] = useState(null)
     const [preview, setPreview] = useState(null)
     const [addToping, setAddToping] = useState({
-        name : "",
+        title : "",
         price : "",
         image : ""
     })
@@ -29,12 +34,33 @@ const AddToping = () => {
           }
         };
 
-    const handleOnSubmit = (e) => {
-        e.preventDefault()
+        const handleOnSubmit = useMutation(async (e) => {
+            try {
+              e.preventDefault();
         
-        alert('Data added sucesfully!')
-    }
-    console.log(addToping);
+              // Configuration
+              const config = {
+                headers: {
+                  'Content-type': 'multipart/form-data',
+                },
+              };
+        
+        // Store data with FormData as object
+        const formData = new FormData();
+              formData.set('image', addToping.image[0], addToping.image[0].name);
+              formData.set('title', addToping.title);
+              formData.set('price', addToping.price);
+        
+              // Insert product data
+              const response = await API.post('/toping', formData, config);
+              setAddToping(response.data.topping)
+        
+          alert('Toping berhasil ditambahkan!')
+            } catch (error) {
+              console.log(error);
+            }
+          });
+          console.log(addToping);
     return (
         <Container>
             <NavbarAdmin/>
@@ -45,9 +71,9 @@ const AddToping = () => {
                             Toping
                         </p>
                     </div>
-                    <Form onSubmit={handleOnSubmit}>
+                    <Form onSubmit={(e) => handleOnSubmit.mutate(e)}>
                         <Form.Group className="mb-4" controlId="formInputProduct">
-                            <Form.Control name="name" onChange={handleOnChange} autoComplete="off" className="formInputProduct" type="text" placeholder="Name Toping" />
+                            <Form.Control name="title" onChange={handleOnChange} autoComplete="off" className="formInputProduct" type="text" placeholder="Name Toping" />
                         </Form.Group>
                         <Form.Group className="mb-2 mt-4" controlId="formInputProduct">
                             <Form.Control name="price" onChange={handleOnChange} autoComplete="off" className="formInputProduct mt-4" type="text" placeholder="Price" />

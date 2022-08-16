@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import { Container, Row, Col, Card } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 import "../../assets/css/Main.css"
-import Background from '../../components/background'
+import Background from '../../components/bg/background'
 import MainBg from "../../assets/img/background-main.png"
-import DummyData from "../../DummyData/Drink"
+import DummyData from "../../Dummies/Drink"
 import Rp from "rupiah-format"
 import NavbarUser from '../../components/partials/NavbarUser'
 
 
-const Home = ({show}) => {
+const Home = () => {
 
     const title ="Home"
     document.title = title
