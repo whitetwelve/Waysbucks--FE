@@ -78,4 +78,10 @@
 }
 #per-img-product{
     border-radius: 14px;
+    max-height: 19rem;
+}
+.title-products-admin{
+    color: #BD0707;
+    font-size: 24px;
+    margin-top: 2rem;
 }

@@ -12,6 +12,8 @@ import Profile from './pages/customer/Profile';
 import Cart from './pages/customer/Cart';
 import Transaction from './pages/admin/Transaction';
 import { API, setAuthToken } from "./config/API"
+import MainAdmin from "./pages/admin/Main-Admin"
+
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -73,6 +75,7 @@ function App() {
         <Route exact path='/Auth' element={<Main/>}/>
         <Route exact path='/add-drink' element={<AddDrink/>}/>
         <Route exact path='/add-toping' element={<AddToping/>}/>
+        <Route exact path='/main-admin' element={<MainAdmin/>}/>
         <Route exact path='/detail-drink/:id' element={<DetailProduct/>}/>
     </Routes>
   );

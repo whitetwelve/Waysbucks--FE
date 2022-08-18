@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import "../../assets/css/Profile.css"
-import { Container, Row, Col, Card } from "react-bootstrap"
+import { Container, Row, Col, Card, Button } from "react-bootstrap"
 import DummyProductTransaction from "../../Dummies/TransactionCard"
 import Logo from "../../assets/img/logo-waysbook.png"
 import Bc from "../../assets/img/barcode.png"
@@ -8,6 +8,9 @@ import Rp from "rupiah-format"
 import NavbarUser from '../../components/partials/NavbarUser';
 import DummyProfile from "../../Dummies/Profile"
 import Moment from "moment"
+import { UserContext } from '../../context/user-context';
+import Blank from "../../assets/img/blank-profile.png"
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
 
@@ -15,8 +18,10 @@ const Profile = () => {
     document.title = title
     
     const [profileDummy] = useState(DummyProfile)
-    const dataCustomer = profileDummy[1]
+    const [state,_] = useContext(UserContext)
     
+    const moving = useNavigate()
+    const { email, fullname, image } = state.user
     const [DummyProduct] = useState(DummyProductTransaction)
     console.log(DummyProduct);
 
@@ -36,7 +41,7 @@ const Profile = () => {
                 </div>
                 <Col>
                     <div className="img-profile mt-4 me-3">
-                        <img className="rounded" src={dataCustomer?.image} />
+                        <img className="rounded" src={ state.user.image ? `http://localhost:5000/uploads/` + image : Blank } />
                     </div>
                 </Col>
                 <Col>
@@ -45,14 +50,20 @@ const Profile = () => {
                             <p>Full Name</p>
                         </div>
                         <div className="childs-profile-data mb-4">
-                            <p>{dataCustomer?.fullname}</p>
+                            <p>{fullname}</p>
                         </div>
                         <div className="parents-profile-data mt-5">
                             <p>Email</p>
                         </div>
                         <div className="childs-profile-data">
-                            <p>{dataCustomer?.email}</p>
+                            <p>{email}</p>
                         </div>
+                    </div>
+                    <div className="btn-edit-profile mt-4">
+                        <Button className="mt-4" variant="danger" type="submit"
+                            onClick={() => moving('/')}>
+                            Edit Profile
+                        </Button>
                     </div>
                 </Col>
                 <Col>

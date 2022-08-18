@@ -8,14 +8,12 @@ import Register from "./Register"
 import Logo from "../../assets/img/logo-waysbook.png"
 import DummyData from "../../Dummies/Drink"
 import Rp from "rupiah-format"
-import { useMutation, useQuery } from "react-query"
 import { API } from "../../config/API"
 
 function Main() {
 
     const title = "Authentication"
     document.title = title
-    const [drinks] = useState(DummyData)
 
     const [products, setProducts] = useState([])
     const [showLogin, setShowLogin] = useState(false)
@@ -46,7 +44,7 @@ function Main() {
     useEffect(() => {
         getProducts()
     },[])
-    console.log(products.data.products);
+    console.log(products);
   return (
     <>
         <div className="for-auth-btn">
@@ -115,7 +113,7 @@ function Main() {
                             setShowLogin(true)
                         }}>
                             <div className="img-drink">
-                                <Card.Img id="per-img-product" variant="top" src={item?.img}/>
+                                <Card.Img id="per-img-product" variant="top" src={item?.image}/>
                             </div>
                             <div className="name-drink ms-2 mt-3">
                                 <p>{item?.title}</p>

@@ -7,6 +7,7 @@ import Topping from "../../assets/img/topping.png"
 import Logout from "../../assets/img/logout.png"
 import { useNavigate } from "react-router-dom";
 import "../../assets/css/Navbar.css"
+import TransIcon from "../../assets/img/trans-icon.png"
 
 function NavbarAdmin() {
   
@@ -32,15 +33,17 @@ const moveToTransaction = () => {
   moving('/transaction')
 }
 
-
+const moveToHomeAdmin = () => { 
+  moving('/main-admin')
+}
 
   return (
     <div>
-      <div class="container">
+      <div class="container position-block">
         <nav class="navbar navbar-expand-lg navbar-light bg-white">
           <div class="container-fluid">
-            <a class="navbar-brand" onClick={moveToTransaction}>
-              <img src={Logo} width="75" height="75" alt="" />
+            <a class="navbar-brand" onClick={moveToHomeAdmin}>
+              <img src={Logo} width="75" height="75" />
             </a>
 
             <div class="d-flex align-items-center">
@@ -75,6 +78,9 @@ const moveToTransaction = () => {
                       </a>
                       <a id="profile-nav" class="dropdown-item" onClick={moveToToping}>
                         <img src={Topping} className="me-1" alt="" height="20px" width="16px" /> Add Topping
+                      </a>
+                      <a id="trans-nav" class="dropdown-item" onClick={moveToTransaction}>
+                        <img src={TransIcon} className="me-1" alt="" height="20px" width="16px" /> Transaction
                       </a>
                       <div class="dropdown-divider"></div>
                       <a id="profile-nav" class="dropdown-item" onClick={moveToLogout} style={{cursor:'pointer'}}>

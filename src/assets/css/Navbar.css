@@ -20,3 +20,6 @@
 .container-fluid .navbar-brand{
     cursor: pointer;
 }
+#trans-nav{
+    cursor: pointer;
+}
