@@ -12,22 +12,22 @@ const datas = [
     {
         name : 'Bubble Tea Gelatin',
         img : topping1,
-        price : 6000
+        price : 4000
     },
     {
         name : 'Manggo',
         img : topping2,
-        price : 9000
+        price : 4000
     },
     {
         name : 'Green Coconut',
         img : topping3,
-        price : 5000
+        price : 4000
     },
     {
         name : 'Boba Manggo',
         img : topping4,
-        price : 8000
+        price : 4000
     },
     {
         name : 'Bill Berry Boba',
@@ -37,12 +37,12 @@ const datas = [
     {
         name : 'Kiwi Popping Pearl',
         img : topping5,
-        price : 6000
+        price : 4000
     },
     {
         name : 'Matcha Cantaloupe',
         img : topping6,
-        price : 9000
+        price : 4000
     },
     {
         name : 'Strawberry Popping',

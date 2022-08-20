@@ -1,29 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form } from "react-bootstrap"
 import "../../assets/css/AddProduct.css"
 import IconUpload from "../../assets/img/ikon-upload.png"
 import NoImg from "../../assets/img/no-photo.jpg"
 import NavbarAdmin from '../../components/partials/NavbarAdmin'
-import { useMutation } from 'react-query'
-import { useNavigate } from 'react-router-dom';
+import { useMutation, useQuery } from 'react-query'
+import { useNavigate, useParams } from 'react-router-dom';
 import { API } from "../../config/API"
+import Rp from "rupiah-format"
+
 
 const UpdateDrink = () => {
     const title = "Update Product"
     document.title = title
 
-    const moving = useNavigate()
     const [message , setMessage] = useState(null)
     const [preview, setPreview] = useState(null)
+
+    const { id } = useParams()
+    const moving = useNavigate()
+
     const [updateProduct, setUpdateProduct] = useState({
         title : "",
         price : "",
         image : ""
     })
+    const [product, setProduct] = useState({});
+
+    // FETCH DATA PRODUCT
+    const { data : productData, refetch } = useQuery('productCache', async () => {
+        const response = await API.get('/product/' + id)
+        return response.data.product
+    })
+    
+    useEffect(() => {
+        if(productData){
+            setPreview(productData?.image)
+            setUpdateProduct({
+                ...updateProduct,
+                title : productData?.title,
+                price : productData?.price,
+            })
+            setProduct(productData)
+        }
+    },[productData])
 
     const handleOnChange = (e) => {
-        setAddProduct(({
-            ...addProduct,
+        setUpdateProduct(({
+            ...updateProduct,
             [e.target.name]:e.target.type === 'file' ? e.target.files : e.target.value
           }))
 
@@ -46,20 +70,24 @@ const UpdateDrink = () => {
         
         // Store data with FormData as object
         const formData = new FormData();
-              formData.set('image', addProduct.image[0], addProduct.image[0].name);
-              formData.set('title', addProduct.title);
-              formData.set('price', addProduct.price);
+        if (updateProduct?.image) {
+            formData.set('image', updateProduct?.image[0], updateProduct?.image[0]?.name);
+          }
+              formData.set('title', updateProduct.title);
+              formData.set('price', updateProduct.price);
         
               // Insert product data
-              const response = await API.post('/product', formData, config);
+              const response = await API.patch(`/product/${id}`, formData, config);
               console.log(response);
         
-          alert('Produk berhasil ditambahkan!')
+          alert('Produk berhasil diupdate!')
+          moving('/main-admin')
             } catch (error) {
               console.log(error);
             }
           });
-
+          console.log(updateProduct);
+          console.log(product);
     return (
         <Container>
             <NavbarAdmin/>
@@ -71,11 +99,20 @@ const UpdateDrink = () => {
                         </p>
                     </div>
                     <Form onSubmit={(e) => handleOnSubmit.mutate(e)}>
+                    {preview && (
+                        <Col className="ms-4 mt-5">
+                            <div className="img-detail-product ms-3 mt-3 mb-5">
+                                <img src={preview || NoImg} />
+                            </div>
+                        </Col>
+                        )}
                         <Form.Group className="mb-4" controlId="formInputProduct">
-                            <Form.Control name="title" onChange={handleOnChange} autoComplete="off" className="formInputProduct" type="text" placeholder="Name Product" />
+                            <Form.Control name="title" onChange={handleOnChange} autoComplete="off"
+                                value={updateProduct?.title} className="formInputProduct" type="text" placeholder="Name Product" />
                         </Form.Group>
                         <Form.Group className="mb-2 mt-4" controlId="formInputProduct">
-                            <Form.Control name="price" onChange={handleOnChange} autoComplete="off" className="formInputProduct mt-4" type="text" placeholder="Price" />
+                            <Form.Control name="price" onChange={handleOnChange} autoComplete="off" 
+                                value={Rp.convert(updateProduct?.price)} className="formInputProduct mt-4" type="text" placeholder="Price" />
                         </Form.Group>
                         <Form.Group className="mb-4" controlId="formInputProduct">
                             <input
@@ -88,17 +125,13 @@ const UpdateDrink = () => {
                             <label for="upload" className="label-file-add-product">
                                 <img className="position-absolute" src={IconUpload}/>
                             </label>
-                            <Form.Control className="formInputProduct" value={addProduct?.image[0]?.name} type="text" placeholder="Photo Product" />
+                            {/* <Form.Control className="formInputProduct" name="image" 
+                                value={ updateProduct?.image} type="text" placeholder="Photo Product" /> */}
                         </Form.Group>
                         <div className="btn-submit-prdct ms-5">
-                            <button type='submit'>Add Product</button>
+                            <button type='submit'>Update Product</button>
                         </div>
                     </Form>
-                </Col>
-                <Col className="ms-4 mt-5">
-                    <div className="img-detail-product ms-3 mt-3 mb-5">
-                        <img src={preview || NoImg} />
-                    </div>
                 </Col>
             </Row>
         </Container>

@@ -1,19 +1,38 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../context/user-context';
 import { Container, Row, Col } from "react-bootstrap"
+import Dummy from "../../Dummies/Topping"
 import Rp from "rupiah-format"
 import "../../assets/css/DetailProduct.css"
-import DummyTopping from "../../Dummies/Topping"
 import { useParams } from 'react-router-dom';
 import NavbarUser from "../../components/partials/NavbarUser";
-import { useQuery } from "react-query"
+import { useQuery, useMutation } from "react-query"
 import { API } from "../../config/API"
+import { CartContext } from '../../context/cart-context';
 
 const DetailProduct = () => {
     const title = ' Detail Product '
     document.title = title 
+
+    // GET ID USER
+    const [state, _] = useContext(UserContext)
+    const user_id = state.user.id
+
+    // STORE DATA CART
+    const [payload, act] = useContext(CartContext)
+    console.log(payload);
+
+    const [addItemCart, setAddItemCart] = useState({
+        product_id : '',
+        subamount : '',
+        qty : ''
+    })
+
+    // COUNTER 
     const [cartCounter, setCartCounter] = useState(0)
-    
+    localStorage.setItem("Tambah", cartCounter)
+    const addCart = localStorage.getItem("Tambah")
+
     // GET PRODUCT
     const [gettingProduct, setGettingProduct] = useState({})
     const { id } = useParams()
@@ -24,7 +43,7 @@ const DetailProduct = () => {
 
     // GET TOPPINGS
     const [gettingToppings, setGettingToppings] = useState([])
-    const [checkedToping, setCheckedToping] = useState([])
+
     const getToppings = async () => {
         const res = await API.get(`/topings`)
         setGettingToppings(res.data.users)
@@ -35,24 +54,10 @@ const DetailProduct = () => {
         getDetailProduct()
         getToppings()
     },[])
-    console.log(gettingToppings);
 
-    const handleChangeToping = (e) => {
-        const id = e.target.value
-        const checked = e.target.checked
-
-        if (checked) {
-            setCheckedToping([...checkedToping, parseInt(id)]);
-          } else {
-            let newTopingId = checkedToping.filter((topingId) => {
-              return topingId != id;
-            });
-            setCheckedToping(newTopingId);
-          }
-    }
 
     const [checkedState, setCheckedState] = useState(
-        new Array(DummyTopping.length).fill(false)
+        new Array(Dummy.length).fill(false)
     );
 
     const [total, setTotal] = useState(0);
@@ -67,23 +72,45 @@ const DetailProduct = () => {
         const totalPrice = updateCheckedState.reduce(
             (sum, currentState, index) => {
                 if (currentState === true) {
-                    return sum + DummyTopping[index].price
+                    return sum + Dummy[index].price
                 }
                 return sum;
             },
         );
-        console.log(totalPrice);
-        setTotal(totalPrice)
+        setTotal(20000 + totalPrice)
     }
 
-    const increaseCart = (e) => {
-        e.preventDefault()
-        setCartCounter(cartCounter + 1)
-        alert('Data added succesfully')
-    }
+    const handleToCart = useMutation(async (e) => {
+        try {
+            e.preventDefault()
+            const config = {
+                headers: {
+                  'Content-type': 'application/json',
+                },
+              };
 
-    localStorage.setItem("Tambah", cartCounter)
-    const addCart = localStorage.getItem("Tambah")
+            let dataCart = {
+                product_id : gettingProduct?.id,
+                subamount : total,
+                qty : 1,
+                user_id : user_id,
+                image : gettingProduct?.image
+            }
+            const body = JSON.stringify(dataCart);
+
+            const response = await API.post('/cart', body, config);
+            console.log(response);
+            act({
+                type: 'ADD_CART_SUCCESS',
+                payload: response.data
+              })
+              setCartCounter(cartCounter + 1)
+              alert('Data added succesfully')
+        } catch (error) {
+            console.log(error);
+        }
+    })
+
     return (
         <Container>
             <NavbarUser plusOne={addCart}/>
@@ -136,12 +163,12 @@ const DetailProduct = () => {
                                 Total
                             </div>
                             <div className="right-total">
-                                {Rp.convert(12000 + total)}
+                                {Rp.convert(total)}
                             </div>
                         </div>
-                        <div className="btn-add-cart mb-5 mt-2">
-                            <button className="mb-2" type="submit" onClick={increaseCart} >Add Cart</button>
-                        </div>
+                            <div className="btn-add-cart mb-5 mt-2">
+                                <button className="mb-2" onClick={(e) => {handleToCart.mutate(e)}} type="submit" >Add Cart</button>
+                            </div>
                     </Row>
                 </Col>
             </Row>

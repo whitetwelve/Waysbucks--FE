@@ -1,5 +1,5 @@
 .mt-5 .title-detail-product .mt-4{
-    width: 501px;
+    width: 35rem;
     height: 66px;
     font-weight: 900;
     font-size: 48px;
@@ -10,7 +10,8 @@
     margin-left: -10rem;
 }
 #detail-img-drink{
-    height: 540px;
+    min-height: 520px;
+    max-height: 520px;
     border-radius: 10px;
 }
 .price-drink p {

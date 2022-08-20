@@ -14,6 +14,8 @@ import Transaction from './pages/admin/Transaction';
 import { API, setAuthToken } from "./config/API"
 import MainAdmin from "./pages/admin/Main-Admin"
 import EditProfile from './pages/customer/Edit-Profile';
+import UpdateDrink from './pages/admin/Update-drink';
+import { CartContext } from './context/cart-context';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -23,8 +25,8 @@ function App() {
   const moving = useNavigate()
   const [state,dispatch] = useContext(UserContext)
   console.log(state);
-
-
+  const [payload, act] = useContext(CartContext)
+  console.log(payload);
   useEffect(() => {
     if (localStorage.token) {
       setAuthToken(localStorage.token);
@@ -77,6 +79,7 @@ function App() {
         <Route exact path='/add-drink' element={<AddDrink/>}/>
         <Route exact path='/add-toping' element={<AddToping/>}/>
         <Route exact path='/main-admin' element={<MainAdmin/>}/>
+        <Route exact path='/update-product/:id' element={<UpdateDrink/>}/>
         <Route exact path='/detail-drink/:id' element={<DetailProduct/>}/>
     </Routes>
   );

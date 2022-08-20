@@ -96,6 +96,8 @@
 #card-main-admin {
     min-width: 241px;
     min-height: 460px;
+    max-width: 241px;
+    max-height: 460px;
     background-color: #F6DADA;
     border-radius: 10px;
 }
