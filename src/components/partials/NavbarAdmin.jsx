@@ -1,7 +1,7 @@
 import React, { useContext} from "react";
 import { UserContext } from "../../context/user-context";
 import Logo from "../../assets/img/logo-waysbook.png";
-import Blank from "../../assets/img/profile-nav.png";
+import Blank from "../../assets/img/blank-profile.png";
 import Cup from "../../assets/img/cup.png"
 import Topping from "../../assets/img/topping.png"
 import Logout from "../../assets/img/logout.png"

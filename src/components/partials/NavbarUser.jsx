@@ -1,6 +1,6 @@
 import React, { useContext} from "react";
 import Logo from "../../assets/img/logo-waysbook.png";
-import Blank from "../../assets/img/profile-nav.png";
+import Blank from "../../assets/img/blank-profile.png";
 import Cart from "../../assets/img/keranjang.png"
 import Profile from "../../assets/img/user.png"
 import { UserContext } from "../../context/user-context";
@@ -11,8 +11,8 @@ import LogoutIcon from "../../assets/img/logout.png"
 
 function NavbarUser({ plusOne }) {
 
-
-    const [_, dispatch] = useContext(UserContext)
+    const [state, dispatch] = useContext(UserContext)
+    const imgProfile = state.user.image
     const moving = useNavigate()
 
     const moveToProfile = () => {
@@ -74,7 +74,7 @@ function NavbarUser({ plusOne }) {
                     >
                       <img
                         className="rounded-circle border border-danger border-2"
-                        src={Blank}
+                        src={imgProfile ? `http://localhost:5000/uploads/`+ imgProfile : Blank}
                         width="50"
                         height="50"
                         alt=""

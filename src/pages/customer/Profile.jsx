@@ -17,9 +17,9 @@ const Profile = () => {
     const title = "Profile"
     document.title = title
     
-    const [profileDummy] = useState(DummyProfile)
     const [state,_] = useContext(UserContext)
-    
+    const ID = state.user.id
+    console.log(state);
     const moving = useNavigate()
     const { email, fullname, image } = state.user
     const [DummyProduct] = useState(DummyProductTransaction)
@@ -31,6 +31,9 @@ const Profile = () => {
         total += item?.price
     })
 
+    const movingToEditProfile = () => {
+        moving('/edit-profile/' + ID)
+    }
     const addCart = localStorage.getItem("Tambah")
     return (
         <Container>
@@ -61,7 +64,7 @@ const Profile = () => {
                     </div>
                     <div className="btn-edit-profile mt-4">
                         <Button className="mt-4" variant="danger" type="submit"
-                            onClick={() => moving('/')}>
+                            onClick={movingToEditProfile}>
                             Edit Profile
                         </Button>
                     </div>

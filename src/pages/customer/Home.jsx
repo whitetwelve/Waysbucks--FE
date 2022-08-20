@@ -8,18 +8,18 @@ import DummyData from "../../Dummies/Drink"
 import Rp from "rupiah-format"
 import NavbarUser from '../../components/partials/NavbarUser'
 import { API } from "../../config/API"
+import { useParams } from 'react-router-dom'
 
 const Home = () => {
 
     const title ="Home"
     document.title = title
-    const [drinks] = useState(DummyData)
-    console.log(drinks);
+
     const moving = useNavigate()
     const [products, setProducts] = useState([])
 
     const moveToDetailDrink = (id) => {
-        moving('/detail-drink/' + id)
+        moving(`/detail-drink/${id}`)
     }
 
         //   GET PRODUCTS
@@ -80,7 +80,7 @@ const Home = () => {
                     <Col className="mapping-card ms-5 mb-5" key={index}>
                         <Card className="card-drink" >
                             <div className="img-drink">
-                                <Card.Img id="per-img-product" variant="top" src={item?.image} onClick={() => moveToDetailDrink(item?.id)}/>
+                                <Card.Img id="per-img-product" variant="top" src={item?.image} onClick={() => moveToDetailDrink(item.id)}/>
                             </div>
                             <div className="name-drink ms-2 mt-3">
                                 <p>{item?.title}</p>

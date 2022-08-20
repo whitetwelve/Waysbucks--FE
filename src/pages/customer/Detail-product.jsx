@@ -1,14 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../../context/user-context';
 import { Container, Row, Col } from "react-bootstrap"
 import Rp from "rupiah-format"
 import "../../assets/css/DetailProduct.css"
 import DummyTopping from "../../Dummies/Topping"
 import { useParams } from 'react-router-dom';
-import DummyDrinks from "../../Dummies/Drink"
 import NavbarUser from "../../components/partials/NavbarUser";
-
+import { useQuery } from "react-query"
+import { API } from "../../config/API"
 
 const DetailProduct = () => {
+    const title = ' Detail Product '
+    document.title = title 
+    const [cartCounter, setCartCounter] = useState(0)
+    
+    // GET PRODUCT
+    const [gettingProduct, setGettingProduct] = useState({})
+    const { id } = useParams()
+    const getDetailProduct = async () => {
+        const response = await API.get(`/product/${id}`)
+        setGettingProduct(response.data.product)
+    }
+
+    // GET TOPPINGS
+    const [gettingToppings, setGettingToppings] = useState([])
+    const [checkedToping, setCheckedToping] = useState([])
+    const getToppings = async () => {
+        const res = await API.get(`/topings`)
+        setGettingToppings(res.data.users)
+    }
+
+    // FETCH
+    useEffect(() => {
+        getDetailProduct()
+        getToppings()
+    },[])
+    console.log(gettingToppings);
+
+    const handleChangeToping = (e) => {
+        const id = e.target.value
+        const checked = e.target.checked
+
+        if (checked) {
+            setCheckedToping([...checkedToping, parseInt(id)]);
+          } else {
+            let newTopingId = checkedToping.filter((topingId) => {
+              return topingId != id;
+            });
+            setCheckedToping(newTopingId);
+          }
+    }
 
     const [checkedState, setCheckedState] = useState(
         new Array(DummyTopping.length).fill(false)
@@ -35,17 +76,6 @@ const DetailProduct = () => {
         setTotal(totalPrice)
     }
 
-    const title = ' Detail Product '
-    document.title = title 
-
-    const id = useParams()
-    const [topping] = useState(DummyTopping)
-    const [drinksDummy] = useState(DummyDrinks)
-    const [cartCounter, setCartCounter] = useState(0)
-    const index = ( id.id - 1 )
-    const response = drinksDummy[index]
-
-
     const increaseCart = (e) => {
         e.preventDefault()
         setCartCounter(cartCounter + 1)
@@ -59,14 +89,14 @@ const DetailProduct = () => {
             <NavbarUser plusOne={addCart}/>
             <Row id="row-detail-product">
                 <Col className="detail-drink mt-5">
-                    <img id="detail-img-drink" className='mt-4 shadow-lg' src={response?.img} value={response?.img}/>
+                    <img id="detail-img-drink" className='mt-4 mb-5 shadow-lg' src={gettingProduct?.image}/>
                 </Col>
                 <Col id="right-side-addtpg" className="mt-5">
                     <div className="title-detail-product">
-                        <p className="mt-4">{response?.name}</p>
+                        <p className="mt-4">{gettingProduct?.title}</p>
                     </div>
                     <div className="price-drink">
-                        <p className="mt-2">{Rp.convert(response?.price)}</p>
+                        <p className="mt-2">{Rp.convert(gettingProduct?.price)}</p>
                     </div>
                     <div className="toping-add">
                         <p className='mt-5'>Toping</p>
@@ -74,8 +104,8 @@ const DetailProduct = () => {
 
                     {/* MAPPING TOPPING */}
                     <Row>
-                    {topping.map((item, index) => (
-                        <div key={index} className="topping-datas ms-4 col">
+                    {gettingToppings.map((item, index) => (
+                        <div key={index} className="topping-datas ms-4 col mb-5">
                             <div className="img-data-toping toppings-list-item" >
                                 <div>
                                     <input 
@@ -87,10 +117,10 @@ const DetailProduct = () => {
                                         onChange={() => handleOnchage(index)}
                                     />
                                     <label htmlFor={`custom-checkbox-${index}`}>
-                                        <img className="mb-3 cursor-pointer" src={item?.img}/>
+                                        <img className="mb-5 cursor-pointer" src={item?.image}/>
                                     </label>
                                     
-                                    <p id="toping-name" className="mb-5">{item?.name}</p>
+                                    <p id="toping-name" className="mb-5">{item?.title}</p>
                                 </div>
                             </div>
                             <div className="price-data-toping ms-4 mb-5" hidden>
@@ -106,7 +136,7 @@ const DetailProduct = () => {
                                 Total
                             </div>
                             <div className="right-total">
-                                {Rp.convert(27000 + total)}
+                                {Rp.convert(12000 + total)}
                             </div>
                         </div>
                         <div className="btn-add-cart mb-5 mt-2">

@@ -8,6 +8,16 @@
     align-items: center;
     color: #BD0707;
 }
+.header-title .title-edit-profile{
+    width: 20rem;
+    height: 22px;
+    font-weight: 800;
+    font-size: 36px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    color: #BD0707;
+}
 .formInputProduct{
     width: 664px;
     height: 50px;

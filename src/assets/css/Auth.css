@@ -90,4 +90,15 @@
 }
 #per-img-product{
     border-radius: 14px;
+    cursor: pointer;
+    height: 20rem;
+}
+#card-main-admin {
+    min-width: 241px;
+    min-height: 460px;
+    background-color: #F6DADA;
+    border-radius: 10px;
+}
+.btn-list-products{
+    width: 6.7rem;
 }
