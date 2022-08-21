@@ -59,7 +59,7 @@ const AddDrink = () => {
               console.log(error);
             }
           });
-
+          console.log(preview);
     return (
         <Container>
             <NavbarAdmin/>

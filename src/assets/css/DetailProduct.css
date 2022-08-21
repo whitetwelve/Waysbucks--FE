@@ -10,8 +10,10 @@
     margin-left: -10rem;
 }
 #detail-img-drink{
-    min-height: 520px;
-    max-height: 520px;
+    min-height: 570px;
+    max-height: 570px;
+    min-width: 400px;
+    max-width: 400px;
     border-radius: 10px;
 }
 .price-drink p {

@@ -50,7 +50,7 @@ const DetailProduct = () => {
         getToppings()
     },[])
 
-
+    // CHECK
     const [checkedState, setCheckedState] = useState(
         new Array(Dummy.length).fill(false)
     );
@@ -110,7 +110,8 @@ const DetailProduct = () => {
         }
     })
 
-
+    console.log(gettingToppings);
+    console.log(gettingProduct);
     return (
         <Container>
             <NavbarUser plusOne={addCart}/>

@@ -21,9 +21,9 @@ function Cart() {
   const [message, setMessage] = useState(null)
 
   const [datas, setDatas] = useState({})
-  const dataCart = payload.cart.carts
+  const dataCart = payload?.cart?.carts
   console.log(dataCart);
-
+  console.log(payload);
   const moving = useNavigate()
   // let subTotal = 0;
   // cartData.forEach((item) => {
@@ -50,24 +50,29 @@ function Cart() {
       setMessage(alert)
       // Get data from product
       const data = {
-        product_id: dataCart.product_id,
-        buyer_id: dataCart.user_id,
-        price: dataCart.subamount,
+        product_id: dataCart?.product_id,
+        seller_id : 5,
+        buyer_id: dataCart?.user_id,
+        price: dataCart?.subamount,
       };
       // Data body
       const body = JSON.stringify(data);
 
       // Configuration
       const config = {
+        method: "POST",
         headers: {
+          Authorization: "Basic " + localStorage.token,
           "Content-type": "application/json",
         },
+        body,
       };
 
       // Insert transaction data
-      const response = await API.post("/transaction", config, body);
-      
+      const response = await API.post("/transaction", config);
       setDatas(response)
+      console.log(response);
+
       // Create variabel for store token payment from response here ...
       const token = response.data.token;
 
@@ -102,7 +107,7 @@ function Cart() {
     //change this to the script source you want to load, for example this is snap.js sandbox env
     const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
     //change this according to your client-key
-    const myMidtransClientKey = "...";
+    const myMidtransClientKey = "SB-Mid-client-nCBei_tHNTHLKVUe";
 
     let scriptTag = document.createElement("script");
     scriptTag.src = midtransScriptUrl;
@@ -163,7 +168,7 @@ function Cart() {
                           <span 
                           className="text-red ms-1"
                           style={{fontSize:"14px", fontWeight: "100"}}>
-                            : a
+                            : Toping1, Toping2, Toping3
                           </span>
                         </p>
                       </div>

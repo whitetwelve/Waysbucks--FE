@@ -92,7 +92,7 @@ const AddToping = () => {
                             <Form.Control className="formInputProduct" value={preview} type="text" placeholder="Photo Product" />
                         </Form.Group>
                         <div className="btn-submit-prdct ms-5">
-                            <button type='submit'>Add Product</button>
+                            <button type='submit'>Add Topping</button>
                         </div>
                     </Form>
                 </Col>

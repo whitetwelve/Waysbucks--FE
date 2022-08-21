@@ -24,9 +24,9 @@ function App() {
 
   const moving = useNavigate()
   const [state,dispatch] = useContext(UserContext)
-  console.log(state);
+  // console.log(state);
   const [payload, _] = useContext(CartContext)
-  console.log(payload);
+  // console.log(payload);
   useEffect(() => {
     if (localStorage.token) {
       setAuthToken(localStorage.token);
