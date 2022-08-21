@@ -25,7 +25,7 @@ function App() {
   const moving = useNavigate()
   const [state,dispatch] = useContext(UserContext)
   console.log(state);
-  const [payload, act] = useContext(CartContext)
+  const [payload, _] = useContext(CartContext)
   console.log(payload);
   useEffect(() => {
     if (localStorage.token) {

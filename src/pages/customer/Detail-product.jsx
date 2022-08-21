@@ -4,7 +4,7 @@ import { Container, Row, Col } from "react-bootstrap"
 import Dummy from "../../Dummies/Topping"
 import Rp from "rupiah-format"
 import "../../assets/css/DetailProduct.css"
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import NavbarUser from "../../components/partials/NavbarUser";
 import { useQuery, useMutation } from "react-query"
 import { API } from "../../config/API"
@@ -13,6 +13,8 @@ import { CartContext } from '../../context/cart-context';
 const DetailProduct = () => {
     const title = ' Detail Product '
     document.title = title 
+    
+    const moving = useNavigate()
 
     // GET ID USER
     const [state, _] = useContext(UserContext)
@@ -20,13 +22,6 @@ const DetailProduct = () => {
 
     // STORE DATA CART
     const [payload, act] = useContext(CartContext)
-    console.log(payload);
-
-    const [addItemCart, setAddItemCart] = useState({
-        product_id : '',
-        subamount : '',
-        qty : ''
-    })
 
     // COUNTER 
     const [cartCounter, setCartCounter] = useState(0)
@@ -91,6 +86,7 @@ const DetailProduct = () => {
 
             let dataCart = {
                 product_id : gettingProduct?.id,
+                product_name : gettingProduct?.title,
                 subamount : total,
                 qty : 1,
                 user_id : user_id,
@@ -106,10 +102,14 @@ const DetailProduct = () => {
               })
               setCartCounter(cartCounter + 1)
               alert('Data added succesfully')
+              if(response.data.status == "Success"){
+                moving('/cart')
+              }
         } catch (error) {
             console.log(error);
         }
     })
+
 
     return (
         <Container>
