@@ -3,25 +3,36 @@ import NavbarAdmin from "../../components/partials/NavbarAdmin";
 import TransactionData from "../../Dummies/TransactionData"
 import { Container, Row, Col, Card } from "react-bootstrap"
 import "../../assets/css/Transaction.css"
-import Rp from "rupiah-format"
+import { useQuery } from "react-query"
+import { API } from "../../config/API"
+import { useEffect } from "react";
 
 function Transaction() {
 
     const title = "Transaction"
     document.title = title
-    const [datas] = useState(TransactionData);
+    const [datas, setDatas] = useState([]);
     console.log(datas);
 
+        //   GET TRANSACTIONS
+        const getTransactions = async () => {
+          const response = await API.get('/transactions')
+          setDatas(response?.data?.Transactions)
+      }
+    
+      useEffect(() => {
+        getTransactions()
+      },[])
+      console.log(datas);
   return (
 
     <>
       <Container>
         <NavbarAdmin/>
-          <Row className="ms-5 mt-4">
+          <Row className="ms-5">
           <div class="container text-red mt-4">
-            <h3 className="mt-4">Income Transaction</h3>
+            <h3 className="mt-4 mb-4">Income Transaction</h3>
           </div>
-
           <div class="container">
             <table class="table table-bordered border-dark">
                 <thead>
@@ -35,13 +46,13 @@ function Transaction() {
                 </tr>
                 </thead>
                 <tbody>
-                {datas.map(data => (
-                <tr>
-                    <th scope="row">{data.no}</th>
-                    <td>{data.name}</td>
-                    <td>{data.address}</td>
-                    <td>{data.postcode}</td>
-                    <td class="text-primary">{data.income}</td>
+                {datas.map((data, idx) => (
+                <tr key={idx}>
+                    <th scope="row">{data.id}</th>
+                    <td>{data?.buyer?.fullname}</td>
+                    <td>{data?.buyer?.address}</td>
+                    <td>{data?.buyer?.post_code}</td>
+                    <td class="text-primary">{data?.price}</td>
                     <td className= {`status-transaction-${data.status}`} >{data.status}</td>
                 </tr>
                 ))}

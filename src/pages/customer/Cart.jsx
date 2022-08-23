@@ -19,12 +19,14 @@ function Cart() {
 
   const [payload, act] = useContext(CartContext)
   const [message, setMessage] = useState(null)
-
+  const [cartData, setCartData] = useState({})
   const [datas, setDatas] = useState({})
-  const dataCart = payload?.cart?.carts
-  console.log(dataCart);
-  console.log(payload);
   const moving = useNavigate()
+
+  useEffect(() => {
+    setDatas(payload?.cart?.carts)
+  },[payload])
+  console.log(datas);
   // let subTotal = 0;
   // cartData.forEach((item) => {
   //   return subTotal += item?.price
@@ -39,21 +41,13 @@ function Cart() {
 
   const handleBuy = useMutation(async (e) => {
     try {
-
       e.preventDefault()
-
-      const alert = (
-        <Alert id="alert-message-payment" variant="success" className='py-3'>
-          Thank you for ordering in us, please wait to verify you order
-        </Alert>
-      )
-      setMessage(alert)
       // Get data from product
       const data = {
-        product_id: dataCart?.product_id,
+        product_id: datas.product_id,
         seller_id : 5,
-        buyer_id: dataCart?.user_id,
-        price: dataCart?.subamount,
+        buyer_id: datas.user_id,
+        price: datas.subamount,
       };
       // Data body
       const body = JSON.stringify(data);
@@ -70,12 +64,12 @@ function Cart() {
 
       // Insert transaction data
       const response = await API.post("/transaction", config);
-      setDatas(response)
+      setCartData(response)
       console.log(response);
 
       // Create variabel for store token payment from response here ...
       const token = response.data.token;
-
+      setDatas(token)
       // Init Snap for display payment page with token here ...
       window.snap.pay(token, {
         onSuccess: function (result) {
@@ -102,7 +96,6 @@ function Cart() {
     }
   });
   const addCart = localStorage.getItem("Tambah")
-  console.log(datas);
   useEffect(() => {
     //change this to the script source you want to load, for example this is snap.js sandbox env
     const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
@@ -120,6 +113,7 @@ function Cart() {
         document.body.removeChild(scriptTag);
     };
     }, []);
+    console.log(cartData);
   return (
     <div>
       <div className="container">
@@ -143,7 +137,7 @@ function Cart() {
                 <div className="row g-0 mb-2">
                   <div className="col-md-2">
                     <img
-                      src={dataCart?.image || NoImg}
+                      src={datas?.image || NoImg}
                       alt=""
                       className="rounded"
                       height={"100px"}
@@ -158,7 +152,7 @@ function Cart() {
                           className="card-title text-red ms-1"
                           style={{ fontSize: "18px", fontWeight: "900" }}
                         >
-                          {dataCart?.product_name}
+                          {datas?.product_name}
                         </p>
                         <p
                           className="card-text ms-1"
@@ -185,7 +179,7 @@ function Cart() {
                             width:'7.5rem'
                           }}
                         >
-                          {Rp.convert(dataCart?.subamount)}
+                          {Rp.convert(datas?.subamount)}
                         </p>
 
                         <img src={Bin} style={{ float: "right" , cursor:'pointer'}}/>
@@ -206,24 +200,26 @@ function Cart() {
                   <hr />
                   <div className="d-flex justify-content-between">
                     <p className="d-flex">Subtotal</p>
-                    <p className="d-flex">{Rp.convert(dataCart?.subamount)}</p>
+                    <p className="d-flex">{Rp.convert(datas?.subamount)}</p>
                   </div>
                   <div className="d-flex justify-content-between">
                     <p className="d-flex">Qty</p>
-                    <p className="d-flex">{dataCart?.qty}</p>
+                    <p className="d-flex">{datas?.qty}</p>
                   </div>
                   <hr />
                   <div className="d-flex justify-content-between">
                     <p className="d-flex fw-bold">Total</p>
-                    <p className="d-flex fw-bold">{Rp.convert(dataCart?.subamount)}</p>
+                    <p className="d-flex fw-bold">{Rp.convert(datas?.subamount)}</p>
                   </div>
                 </div>
               <div className="mt-4">
+                <Form onSubmit={(e) => handleBuy.mutate(e)}>
                 <button 
                 className="container btn btn-primary bg-red border-0 mt-2" 
-                onClick={(e) => handleBuy.mutate(e)}>
+                  type='submit'>
                   Pay
                 </button>
+                </Form>
               </div>
             </div>
         </div>

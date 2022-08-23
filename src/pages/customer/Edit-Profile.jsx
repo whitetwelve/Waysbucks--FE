@@ -23,12 +23,9 @@ const EditProfile = () => {
     const [fetchProfile, setFetchProfile] = useState({
         fullname : "",
         email : "",
-        image : ""
-    })
-    const [updateProfile, setUpdateProfile] = useState({
-        fullname : "",
-        email : "",
-        image : ""
+        image : "",
+        post_code : "",
+        address : ""
     })
 
     const getProfiles = async () => {
@@ -42,8 +39,8 @@ const EditProfile = () => {
     },[])
 
     const handleOnChange = (e) => {
-        setUpdateProfile({
-            ...updateProfile,
+        setFetchProfile({
+            ...fetchProfile,
             [e.target.name]: e.target.type === "file" ? e.target.files : e.target.value
         })
         if(e.target.type === 'file'){
@@ -65,12 +62,14 @@ const EditProfile = () => {
             };
             const data = new FormData()
             
-            if (updateProfile?.image) {
-                data.set("image", updateProfile.image[0],updateProfile.image[0].name);
+            if (fetchProfile?.image) {
+                data.set("image", fetchProfile?.image[0],fetchProfile.image[0].name);
               }
-            data.set("fullname", updateProfile.fullname)
-            data.set("email", updateProfile.email)
-            console.log(updateProfile.image);
+            data.set("fullname", fetchProfile?.fullname)
+            data.set("email", fetchProfile?.email)
+            data.set("address", fetchProfile?.address)
+            data.set("post_code", fetchProfile?.post_code)
+
             const response = await API.patch(`/user/${id}`, data, config);
             console.log(response)
             alert('Success update!')
@@ -101,6 +100,16 @@ const EditProfile = () => {
                         value={fetchProfile.email} type="text" placeholder="Your Email" onChange={handleOnChange}
                         />
                     </Form.Group>
+                    <Form.Group className="mb-2 mt-4" controlId="formInputProduct">
+                        <Form.Control name="address" autoComplete="off" className="formInputProduct mt-4" 
+                        value={fetchProfile.address} type="text" placeholder="Your Address" onChange={handleOnChange}
+                        />
+                    </Form.Group>
+                    <Form.Group className="mb-2 mt-4" controlId="formInputProduct">
+                        <Form.Control name="post_code" autoComplete="off" className="formInputProduct mt-4" 
+                        value={fetchProfile.post_code} type="text" placeholder="Your Post Code" onChange={handleOnChange}
+                        />
+                    </Form.Group>
                     <Form.Group className="mb-4" controlId="formInputProduct">
                         <input
                         type="file"
@@ -110,12 +119,12 @@ const EditProfile = () => {
                         hidden
                         />
                         <label for="upload" className="label-file-add-product">
-                            <img className="position-absolute" src={IconUpload}/>
+                            <img id="upload-file-update" src={IconUpload}/>
                         </label>
                         <Form.Control name="image" className="formInputProduct" type="text" placeholder="Your Photo"
                         value={fetchProfile?.image} onChange={handleOnChange}/>
                     </Form.Group>
-                    <div className="btn-submit-prdct ms-5">
+                    <div className="btn-submit-prdct ms-5 mb-5">
                         <button type='submit'>Edit Profile</button>
                     </div>
                 </Form>

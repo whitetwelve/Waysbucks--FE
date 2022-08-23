@@ -89,7 +89,7 @@ const AddToping = () => {
                             <label for="upload" className="label-file-add-product">
                                 <img className="position-absolute" src={IconUpload}/>
                             </label>
-                            <Form.Control className="formInputProduct" value={preview} type="text" placeholder="Photo Product" />
+                            <Form.Control className="formInputProduct" value={preview} type="text" placeholder="Photo Toping" />
                         </Form.Group>
                         <div className="btn-submit-prdct ms-5">
                             <button type='submit'>Add Topping</button>

@@ -104,3 +104,29 @@
 .btn-list-products{
     width: 6.7rem;
 }
+.title-table{
+    color:#BD0707;
+    font-size: 36px;
+}
+.img-topping img {
+    align-items: center;
+    position: relative;
+    margin-left:3rem
+}
+.img-topping{
+    width: 12rem;
+}
+.btn-toppings {
+    width: 16rem;
+    margin-bottom: -1rem;
+}
+.btn-toppings .buttons{
+    width: 5rem;
+    margin-left: 1.6rem;
+    margin-top: 1rem;
+}
+#upload-toping{
+    max-width: 5rem;
+    max-height: 5rem;
+    min-height: 5rem;
+}

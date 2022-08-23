@@ -16,6 +16,8 @@ import MainAdmin from "./pages/admin/Main-Admin"
 import EditProfile from './pages/customer/Edit-Profile';
 import UpdateDrink from './pages/admin/Update-drink';
 import { CartContext } from './context/cart-context';
+import ListTopping from './pages/admin/List-toping';
+import UpdateToping from './pages/admin/Update-Toping';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -75,6 +77,8 @@ function App() {
         <Route exact path='/edit-profile/:id' element={<EditProfile/>}/>
         <Route exact path='/cart' element={<Cart/>}/>
         <Route exact path='/transaction' element={<Transaction/>}/>
+        <Route exact path='/update-toping/:id' element={<UpdateToping/>}/>
+        <Route exact path='/toppings' element={<ListTopping/>}/>
         <Route exact path='/Auth' element={<Main/>}/>
         <Route exact path='/add-drink' element={<AddDrink/>}/>
         <Route exact path='/add-toping' element={<AddToping/>}/>

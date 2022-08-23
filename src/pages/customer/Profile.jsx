@@ -21,7 +21,7 @@ const Profile = () => {
     const ID = state.user.id
     console.log(state);
     const moving = useNavigate()
-    const { email, fullname, image } = state.user
+    const { email, fullname, image, post_code, address } = state.user
     const [DummyProduct] = useState(DummyProductTransaction)
     console.log(DummyProduct);
 
@@ -61,6 +61,18 @@ const Profile = () => {
                         <div className="childs-profile-data">
                             <p>{email}</p>
                         </div>
+                        <div className="parents-profile-data mt-5">
+                            <p>Address</p>
+                        </div>
+                        <div className="childs-profile-data">
+                            <p>{address}</p>
+                        </div>
+                        <div className="parents-profile-data mt-5">
+                            <p>Post Code</p>
+                        </div>
+                        <div className="childs-profile-data">
+                            <p>{post_code}</p>
+                        </div>
                     </div>
                     <div className="btn-edit-profile mt-4">
                         <Button className="mt-4" variant="danger" type="submit"
@@ -69,7 +81,7 @@ const Profile = () => {
                         </Button>
                     </div>
                 </Col>
-                <Col>
+                <Col >
                     <div className="title-transaction">
                         <p>My Transaction</p>
                     </div>

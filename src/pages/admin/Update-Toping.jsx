@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import NavbarAdmin from '../../components/partials/NavbarAdmin';
+import { useQuery, useMutation } from 'react-query';
 import { Container, Row, Col, Form } from "react-bootstrap"
-import "../../assets/css/AddProduct.css"
+import { API } from '../../config/API';
+import { useNavigate, useParams  } from 'react-router-dom';
 import IconUpload from "../../assets/img/ikon-upload.png"
 import NoImg from "../../assets/img/no-photo.jpg"
-import NavbarAdmin from '../../components/partials/NavbarAdmin'
-import { useMutation, useQuery } from 'react-query'
-import { useNavigate, useParams } from 'react-router-dom';
-import { API } from "../../config/API"
-import Rp from "rupiah-format"
 
-
-const UpdateDrink = () => {
+const UpdateToping = () => {
     const title = "Update Product"
     document.title = title
 
@@ -18,28 +15,29 @@ const UpdateDrink = () => {
 
     const { id } = useParams()
     const moving = useNavigate()
-
+    
+    const [product, setProduct] = useState({})
     const [data, setData] = useState({
         title : "",
         price : "",
         image : ""
     })
 
-    const { data : productData, refetch } = useQuery('productCache', async () => {
-        const response = await API.get('/product/' + id)
-        return response.data.product
+    const { data : toppingData, refetch } = useQuery('toppingCache', async () => {
+        const response = await API.get('/toping/' + id)
+        return response.data.users
     })
-
+    console.log(toppingData);
     useEffect(() => {
-      if(productData){
-      setPreview(productData?.image)
+      if(toppingData){
+      setPreview(toppingData?.image)
       setData({
         ...data,
-        title : productData?.title,
-        price : productData?.price
+        title : toppingData?.title,
+        price : toppingData?.price
   })
 }
-    },[productData])
+    },[toppingData])
     console.log(data);
     console.log(preview);
           // Handle change data on form
@@ -76,9 +74,9 @@ const UpdateDrink = () => {
               };
     
             // Insert product data
-            const response = await API.patch(`/product/${id}`,formData,config);    
+            const response = await API.patch(`/toping/${id}`,formData,config);    
             console.log(response.data);
-            moving('/main-admin');
+            moving('/toppings');
           } catch (error) {
             console.log(error);
           }
@@ -90,12 +88,12 @@ const UpdateDrink = () => {
                 <Col id="left-side-form" className="mt-4">
                     <div className="header-title mt-5">
                         <p className="title-add-product mb-5">
-                            Product
+                            Topping
                         </p>
                     </div>
                     <Form onSubmit={(e) => handleOnSubmit.mutate(e)}>
                         <Form.Group className="mb-4" controlId="formInputProduct">
-                            <Form.Control name="title" value={data?.title} autoComplete="off" className="formInputProduct" type="text" placeholder="Name Product" onChange={handleChange}/>
+                            <Form.Control name="title" value={data?.title} autoComplete="off" className="formInputProduct" type="text" placeholder="Name Topping" onChange={handleChange}/>
                         </Form.Group>
                         <Form.Group className="mb-2 mt-4" controlId="formInputProduct">
                             <Form.Control name="price" value={data?.price} onChange={handleChange} autoComplete="off" className="formInputProduct mt-4" type="text" placeholder="Price"/>
@@ -111,10 +109,10 @@ const UpdateDrink = () => {
                             <label for="upload" className="label-file-add-product">
                                 <img className="position-absolute" src={IconUpload}/>
                             </label>
-                            <Form.Control value={ preview } className="formInputProduct" type="text" placeholder="Photo Product"/>
+                            <Form.Control value={ preview } className="formInputProduct" type="text" placeholder="Photo Topping"/>
                         </Form.Group>
                         <div className="btn-submit-prdct ms-5">
-                            <button type='submit'>Update Product</button>
+                            <button type='submit'>Update Topping</button>
                         </div>
                     </Form>
                 </Col>
@@ -127,4 +125,4 @@ const UpdateDrink = () => {
         </Container>
     )
 }
-export default UpdateDrink
+export default UpdateToping

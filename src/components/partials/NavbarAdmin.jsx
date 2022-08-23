@@ -7,6 +7,7 @@ import Topping from "../../assets/img/topping.png"
 import Logout from "../../assets/img/logout.png"
 import { useNavigate } from "react-router-dom";
 import "../../assets/css/Navbar.css"
+import ToppingNav from "../../assets/img/topping-nav.avif"
 import TransIcon from "../../assets/img/trans-icon.png"
 
 function NavbarAdmin() {
@@ -35,6 +36,10 @@ const moveToTransaction = () => {
 
 const moveToHomeAdmin = () => { 
   moving('/main-admin')
+}
+
+const moveToToppings = () => { 
+  moving('/toppings')
 }
 
   return (
@@ -81,6 +86,9 @@ const moveToHomeAdmin = () => {
                       </a>
                       <a id="trans-nav" class="dropdown-item" onClick={moveToTransaction}>
                         <img src={TransIcon} className="me-1" alt="" height="20px" width="16px" /> Transaction
+                      </a>
+                      <a id="topping-nav" class="dropdown-item" onClick={moveToToppings}>
+                        <img src={ToppingNav} className="me-1" alt="" height="20px" width="16px" /> Toppings
                       </a>
                       <div class="dropdown-divider"></div>
                       <a id="profile-nav" class="dropdown-item" onClick={moveToLogout} style={{cursor:'pointer'}}>

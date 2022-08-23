@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from "../../components/partials/NavbarAdmin"
-import { Container, Row, Col, Card, Button } from "react-bootstrap"
+import { Container, Row, Col, Card, Button ,Table } from "react-bootstrap"
 import { API } from "../../config/API"
 import "../../assets/css/Main.css"
 import Rp from "rupiah-format"
@@ -16,8 +16,6 @@ const MainAdmin = () => {
     const [deleteOne, setDeleteOne] = useState(null)
     const [confirmDelete,setConfirmDelete] = useState(null)
 
-    const [message, setMessage] = useState(null)
-
     const [show, setShow] = useState(false)
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
@@ -25,27 +23,25 @@ const MainAdmin = () => {
     const moving = useNavigate()
 
     const { id } = useParams()
-    console.log(id);
 
         //   GET PRODUCTS
     let {data: products, refetch} = useQuery('productsCache', async () => {
         const response = await API.get('/products')
         return response.data.products
       })
-          console.log(products);
 
-    // DELETE 
+    // DELETE PRODUCT
     const handleDelete = (id) => {
         setDeleteOne(id);
         handleShow();
       };
-    
+
     // UPDATE PRODUCT
     const editProduct = (id) => {
         moving('/update-product/' + id)
     } 
 
-    //   MUTATE DELETE
+    //   MUTATE DELETE PRODUCT
     const deleteById = useMutation(async (id) => {
         try {
           const response = await API.delete(`/product/${id}`);
@@ -56,8 +52,8 @@ const MainAdmin = () => {
           console.log(error);
         }
       });
-    
-    //  LIFECYCLE DELETE
+
+              //  LIFECYCLE DELETE
     useEffect(() => {
         if (confirmDelete) {
           // Close modal confirm delete data
@@ -67,11 +63,10 @@ const MainAdmin = () => {
           setConfirmDelete(null);
         }
       }, [confirmDelete]);
-
     return (
         <>
               {/* LIST PRODUCTS */}
-      <Container className="ms-5" >
+      <Container fluid className="mt-2">
         <Navbar/>
         <Row className="ms-5">
             <div className="footer-title mt-5">

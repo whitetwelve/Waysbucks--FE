@@ -145,7 +145,7 @@ const DetailProduct = () => {
                                         onChange={() => handleOnchage(index)}
                                     />
                                     <label htmlFor={`custom-checkbox-${index}`}>
-                                        <img className="mb-5 cursor-pointer" src={item?.image}/>
+                                        <img id="img-topping-detail" className="mb-5 cursor-pointer" src={item?.image}/>
                                     </label>
                                     
                                     <p id="toping-name" className="mb-5">{item?.title}</p>
