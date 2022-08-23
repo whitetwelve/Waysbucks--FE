@@ -1,4 +1,4 @@
-import React, { useContext} from "react";
+import React, { useState, useContext, useEffect} from "react";
 import Logo from "../../assets/img/logo-waysbook.png";
 import Blank from "../../assets/img/blank-profile.png";
 import Cart from "../../assets/img/keranjang.png"
@@ -7,12 +7,25 @@ import { UserContext } from "../../context/user-context";
 import "../../assets/css/Navbar.css"
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from "../../assets/img/logout.png"
+import { API } from "../../config/API";
 
 
 function NavbarUser({ plusOne }) {
 
     const [state, dispatch] = useContext(UserContext)
-    const imgProfile = state.user.image
+    const [data, setData] = useState({})
+    const idx = state?.user?.id
+
+    const getProfile = async () => {
+      const response = await API.get('/user/' + idx)
+      setData(response?.data?.users)
+  } 
+
+  console.log(data);
+  useEffect(() => {
+      getProfile()
+  },[])
+
     const moving = useNavigate()
 
     const moveToProfile = () => {
@@ -74,7 +87,7 @@ function NavbarUser({ plusOne }) {
                     >
                       <img
                         className="rounded-circle border border-danger border-2"
-                        src={imgProfile ? `http://localhost:5000/uploads/`+ imgProfile : Blank}
+                        src={data?.image || Blank}
                         width="50"
                         height="50"
                         alt=""
