@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import "../../assets/css/Profile.css"
 import { Container, Row, Col, Card, Button } from "react-bootstrap"
-import DummyProductTransaction from "../../Dummies/TransactionCard"
 import Logo from "../../assets/img/logo-waysbook.png"
 import Bc from "../../assets/img/barcode.png"
 import Rp from "rupiah-format"
