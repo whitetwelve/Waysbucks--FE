@@ -29,7 +29,7 @@ const MainAdmin = () => {
         const response = await API.get('/products')
         return response.data.products
       })
-
+      console.log(products);
     // DELETE PRODUCT
     const handleDelete = (id) => {
         setDeleteOne(id);
