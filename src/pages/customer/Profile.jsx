@@ -23,16 +23,9 @@ const Profile = () => {
     const idx = state.user.id
     console.log(idx);
     const moving = useNavigate()
-    const { email, fullname, image, post_code, address } = state.user
 
     const [data, setData] = useState({})
-    const [DummyProduct] = useState(DummyProductTransaction)
     const [transData, setTransData] = useState([])
-    let total = 0;
-
-    DummyProduct.forEach((item) => {
-        total += item?.price
-    })
 
     // GET PROFILE DATA
     const getProfile = async () => {
@@ -40,24 +33,30 @@ const Profile = () => {
         setData(response?.data?.users)
     } 
 
-    // GET CART DATA
-    const getTrans = async () => {
-        const response = await API.get('/carts')
-        setTransData(response?.data?.carts)
-    } 
-    console.log(transData);
+
+    // GET TRANS USER
+    const getUserTrans = async () => {
+        const res = await API.get('/cart-user')
+        setTransData(res.data.carts)
+    }
+    
+    let subTotal = 0;
+    transData.forEach((item) => {
+      subTotal += item?.sub_total
+    })
+
     useEffect(() => {
         getProfile()
-        getTrans()
+        getUserTrans()
     },[])
 
     const movingToEditProfile = () => {
         moving('/edit-profile/' + idx)
     }
-    const addCart = localStorage.getItem("Tambah")
+
     return (
         <Container>
-            <NavbarUser plusOne={addCart}/>
+            <NavbarUser/>
             <Row>
                 <div className="header-title-profile mt-5">
                     <p className="py-3 fw-bolder">My Profile</p>
@@ -108,7 +107,7 @@ const Profile = () => {
                         <Card className="card-transaction mb-5">
                             {transData.map((item,index) => (
                                 <div className="left-side-card d-flex" key={index}>
-                                    <img className="rounded py-3 ms-3 me-3" src={`http://localhost:5000/uploads/` + item?.product?.image}/>
+                                    <img  className="rounded py-3 ms-3 me-3" src={item?.product?.image}/>
                                     <div className="datas-transaction mt-4 ">
                                         <div className="title-names-transaction">
                                             <p>{item?.product?.title}</p>
@@ -120,15 +119,18 @@ const Profile = () => {
                                             </p>
                                         </div>
                                         <div className="toping-transaction">
-                                            <div className="just-toping">
-                                                Toping
-                                                &nbsp; : <b className="times-new" >
-                                                    {item?.toping?.index?.title}
+                                            
+                                            <div className="just-toping" >
+                                            Toping :
+                                            {item?.topping.map((data) => (
+                                                <b className="times-new">
+                                                    {data?.title}&nbsp;,
                                                 </b>
+                                            ))}
                                             </div>
                                         </div>
                                         <div className="price-transaction mt-2">
-                                            <b className='times-new mt-2'>Price : {Rp.convert(item?.subamount)}</b>
+                                            <b className='times-new mt-2'>Price : {Rp.convert(item?.sub_total)}</b>
                                         </div>
                                     </div>
                                 </div>
@@ -147,7 +149,7 @@ const Profile = () => {
                                     <b className='fw-bold position-absolute'>On The Wayt</b>
                                 </div>
                                 <div className="sub-total-transaction">
-                                    <p className='position-absolute'>Sub Total : {Rp.convert(50000)} </p>
+                                    <p className='position-absolute'>Sub Total : {Rp.convert(subTotal)} </p>
                                 </div>
                             </div>                             
                         </Card>

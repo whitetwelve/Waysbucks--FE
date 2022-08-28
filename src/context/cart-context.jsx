@@ -10,9 +10,7 @@ const reducer = (state, action) => {
 
         case "ADD_CART_SUCCESS":
             return {
-              cart: {
-                ...payload
-              }
+              cart: payload
             };
         case "DELETE_CART":
           const data = action.payload

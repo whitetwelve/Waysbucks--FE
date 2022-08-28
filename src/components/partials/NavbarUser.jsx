@@ -8,12 +8,14 @@ import "../../assets/css/Navbar.css"
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from "../../assets/img/logout.png"
 import { API } from "../../config/API";
+import { useQuery } from "react-query";
 
 
-function NavbarUser({ plusOne }) {
+function NavbarUser() {
 
     const [state, dispatch] = useContext(UserContext)
     const [data, setData] = useState({})
+    const [zz, setZz] = useState([])
     const idx = state?.user?.id
 
     const getProfile = async () => {
@@ -21,7 +23,6 @@ function NavbarUser({ plusOne }) {
       setData(response?.data?.users)
   } 
 
-  console.log(data);
   useEffect(() => {
       getProfile()
   },[])
@@ -47,6 +48,10 @@ function NavbarUser({ plusOne }) {
       moving("/Auth")
     }
 
+    let { data: cartLength, refetch } = useQuery("cartsCache", async () => {
+      const response = await API.get("/cart-user");
+      setZz(response.data.carts.length)
+    });
 
   return (
     <div>
@@ -54,7 +59,7 @@ function NavbarUser({ plusOne }) {
         <nav className="navbar navbar-expand-lg navbar-light bg-white">
           <div className="container-fluid">
           <span id="counter-plus" class="badge rounded-pill bg-danger" style={{position:"absolute", top:"35px", right:"90px"}}> 
-                {plusOne}
+                {zz}
               <span class="visually-hidden">
                   unread messages
               </span> 
@@ -86,7 +91,7 @@ function NavbarUser({ plusOne }) {
                       aria-expanded="false"
                     >
                       <img
-                        className="rounded-circle border border-danger border-2"
+                        className="rounded-circle border-danger border-2"
                         src={data?.image || Blank}
                         width="50"
                         height="50"

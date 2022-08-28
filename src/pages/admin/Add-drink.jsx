@@ -5,14 +5,13 @@ import IconUpload from "../../assets/img/ikon-upload.png"
 import NoImg from "../../assets/img/no-photo.jpg"
 import NavbarAdmin from '../../components/partials/NavbarAdmin'
 import { useMutation } from 'react-query'
-import { useNavigate } from 'react-router-dom';
 import { API } from "../../config/API"
+
 
 const AddDrink = () => {
     const title = "Add Product"
     document.title = title
 
-    const moving = useNavigate()
     const [message , setMessage] = useState(null)
     const [preview, setPreview] = useState(null)
     const [addProduct, setAddProduct] = useState({

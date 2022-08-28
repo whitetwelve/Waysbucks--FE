@@ -68,6 +68,9 @@
 }
 .left-side-card img{
     height: 10rem;
+    width: 7rem;
+    border-radius:2px;
+
 }
 .card-transaction{
     width: 630px;

@@ -93,7 +93,7 @@ const UpdateToping = () => {
                     </div>
                     <Form onSubmit={(e) => handleOnSubmit.mutate(e)}>
                         <Form.Group className="mb-4" controlId="formInputProduct">
-                            <Form.Control name="title" value={data?.title} autoComplete="off" className="formInputProduct" type="text" placeholder="Name Topping" onChange={handleChange}/>
+                            <Form.Control name="title" value={data?.title == "" ? data?.title : data.title} autoComplete="off" className="formInputProduct" type="text" placeholder="Name Topping" onChange={handleChange}/>
                         </Form.Group>
                         <Form.Group className="mb-2 mt-4" controlId="formInputProduct">
                             <Form.Control name="price" value={data?.price} onChange={handleChange} autoComplete="off" className="formInputProduct mt-4" type="text" placeholder="Price"/>

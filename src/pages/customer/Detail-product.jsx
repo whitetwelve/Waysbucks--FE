@@ -6,7 +6,7 @@ import Rp from "rupiah-format"
 import "../../assets/css/DetailProduct.css"
 import { useParams, useNavigate } from 'react-router-dom';
 import NavbarUser from "../../components/partials/NavbarUser";
-import { useQuery, useMutation } from "react-query"
+import { useMutation } from "react-query"
 import { API } from "../../config/API"
 import { CartContext } from '../../context/cart-context';
 
@@ -36,12 +36,34 @@ const DetailProduct = () => {
         setGettingProduct(response.data.product)
     }
 
-    // GET TOPPINGS
-    const [gettingToppings, setGettingToppings] = useState([])
+    // SET TOPPINGS
+    const [topping, setTopping] = useState([])
+    const [toppingID, setToppingID] = useState([])
+    console.log(toppingID);
+    const  handleChange = (e) => {
+        let updateTopping = [...topping]
+        if (e.target.checked) {
+            updateTopping = [...topping, e.target.value]
+        } else {
+            updateTopping.splice(topping.indexOf(e.target.value))
+        }
+        setTopping(updateTopping)
 
-    const getToppings = async () => {
-        const res = await API.get(`/topings`)
-        setGettingToppings(res.data.users)
+
+    let toppingId = [...toppingID]
+        if(e.target.checked) {
+            toppingId = [...toppingID, parseInt(e.target.name)]
+        } else {
+            toppingId.splice(toppingID.indexOf(e.target.name))
+        }
+        setToppingID(toppingId)
+    }
+
+    // GET TOPPINGS 
+    const [gettingToppings, setGettingToppings] = useState([])
+    const getToppings = async() => {
+        const res = await API.get('/topings')
+        setGettingToppings(res?.data?.users)
     }
 
     // FETCH
@@ -50,31 +72,13 @@ const DetailProduct = () => {
         getToppings()
     },[])
 
-    // CHECK
-    const [checkedState, setCheckedState] = useState(
-        new Array(Dummy.length).fill(false)
-    );
+    // ADD COST
+    let toppingTotal = topping.reduce((a, b) => {
+        return a + parseInt(b)
+    }, 0)
+    let sub_amount = gettingProduct?.price + toppingTotal
 
-    const [total, setTotal] = useState(0);
-
-    const handleOnchage = (id) => {
-        const updateCheckedState = checkedState.map((item, index) =>
-            index === id ? !item : item
-        )
-
-        setCheckedState(updateCheckedState);
-
-        const totalPrice = updateCheckedState.reduce(
-            (sum, currentState, index) => {
-                if (currentState === true) {
-                    return sum + Dummy[index].price
-                }
-                return sum;
-            },
-        );
-        setTotal(20000 + totalPrice)
-    }
-
+    // ADD TO CART
     const handleToCart = useMutation(async (e) => {
         try {
             e.preventDefault()
@@ -84,34 +88,19 @@ const DetailProduct = () => {
                 },
               };
 
-            let dataCart = {
-                product_id : gettingProduct?.id,
-                product_name : gettingProduct?.title,
-                subamount : total,
-                qty : 1,
-                user_id : user_id,
-                image : gettingProduct?.image
-            }
-            const body = JSON.stringify(dataCart);
+            const body = JSON.stringify({
+                topping_id : toppingID,
+                sub_total : sub_amount,
+
+                product_id:parseInt(id)
+            });
 
             const response = await API.post('/cart', body, config);
-            console.log(response);
-            act({
-                type: 'ADD_CART_SUCCESS',
-                payload: response.data
-              })
-              setCartCounter(cartCounter + 1)
-              alert('Data added succesfully')
-              if(response.data.status == "Success"){
-                moving('/cart')
-              }
         } catch (error) {
             console.log(error);
         }
     })
 
-    console.log(gettingToppings);
-    console.log(gettingProduct);
     return (
         <Container>
             <NavbarUser plusOne={addCart}/>
@@ -132,30 +121,24 @@ const DetailProduct = () => {
 
                     {/* MAPPING TOPPING */}
                     <Row>
-                    {gettingToppings.map((item, index) => (
-                        <div key={index} className="topping-datas ms-4 col mb-5">
-                            <div className="img-data-toping toppings-list-item" >
-                                <div>
-                                    <input 
-                                        type="checkbox" 
-                                        className="poppingCheck" 
-                                        style={{display:"none"}}
-                                        id={`custom-checkbox-${index}`}
-                                        checked={checkedState[index]}
-                                        onChange={() => handleOnchage(index)}
-                                    />
-                                    <label htmlFor={`custom-checkbox-${index}`}>
-                                        <img id="img-topping-detail" className="mb-5 cursor-pointer" src={item?.image}/>
-                                    </label>
-                                    
-                                    <p id="toping-name" className="mb-5">{item?.title}</p>
-                                </div>
+                    <div className="topping-detail-container">
+                        {gettingToppings?.map((data, index) => (
+                        <form>
+                        <div className="topping-detail">
+                            <div className="picture-topping-detail">
+                            <input type="checkbox" className="toppingCheckboxs" id={`checkmark${index}`} 
+                            value={data.price} name={data.id} onChange={handleChange} />
+                            <label htmlFor ={`checkmark${index}`}>
+                                <img className="picture-topping" src={data.image} alt="" />
+                            </label>
                             </div>
-                            <div className="price-data-toping ms-4 mb-5" hidden>
-                                <p>{item?.price}</p>
+                            <div className="topping-variant-detail">
+                            <p className='mt-3'>{data.title}</p>
                             </div>
                         </div>
-                    ))}
+                        </form>
+                        ))}
+                    </div>
                     
                     {/* END MAPPING */}
 
@@ -164,7 +147,7 @@ const DetailProduct = () => {
                                 Total
                             </div>
                             <div className="right-total">
-                                {Rp.convert(total)}
+                                {Rp.convert(gettingProduct?.price + toppingTotal)}
                             </div>
                         </div>
                             <div className="btn-add-cart mb-5 mt-2">

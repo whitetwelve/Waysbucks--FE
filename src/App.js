@@ -26,7 +26,7 @@ function App() {
 
   const moving = useNavigate()
   const [state,dispatch] = useContext(UserContext)
-
+  console.log(state);
   useEffect(() => {
     if (localStorage.token) {
       setAuthToken(localStorage.token);
